@@ -28,7 +28,7 @@ MID Tourism is a **one stop web app** for those who want to take a break and enj
 2. Halomoan Geraldo :
 - Transportations Module
 
-3. Kaloosh Verrel :
+3. Kaloosh Falito Verrell :
 - Restaurants Module
 
 4. Mohammad Attar :

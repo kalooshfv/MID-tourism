@@ -6,7 +6,7 @@ by PT. Maju Indonesia Tourism **[Application@Heroku](google.com "Find your Touri
 **Executive Boards :**
 1. Dylan Pribadi 
 2. Halomoan Geraldo
-3. Kaloosh Verrel
+3. Kaloosh Falito Verrell
 4. Mohammad Attar
 5. Nicholas Lexi
 6. Raphael Fide

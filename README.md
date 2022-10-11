@@ -16,6 +16,23 @@ by PT. Maju Indonesia Tourism **[Application@Heroku](google.com "Find your Touri
 MID Tourism is a **one stop web app** for those who want to take a break and enjoy travelling.
 
 ###### What are the features available on MID Tourism?
+MID Tourism provides you many features lalal... ⤵️
+
+1. **Hotels** :
+This the feature where you can overview the best recommended hotels in your designated area
+
+2. **Resto**
+This feature helps you to find the best and the most famous restaurants in your designated area
+
+3. **Rental Transportation** :
+This feature helps you to rent transportations safely in your designated area
+
+4. **Landmarks** :
+This feature shows you the nearest and remarkable landmarks to visit in your designated area
+
+5. **Tourguide** :
+This feature helps you to rent tourguides in your designated area
+
 
 ###### What are the Instructions to build, run, and deploy the app?
 

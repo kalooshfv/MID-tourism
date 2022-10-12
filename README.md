@@ -19,20 +19,22 @@ MID Tourism is a **one stop web app** for those who want to take a break and enj
 MID Tourism provides you many features lalal... ⤵️
 
 1. **Hotels** :
-This the feature where you can overview the best recommended hotels in your designated area
+This the feature where you can overview the best recommended hotels in your designated area.
 
 2. **Resto**
-This feature helps you to find the best and the most famous restaurants in your designated area
+This feature helps you to find the best and the most famous restaurants in your designated area.
 
 3. **Rental Transportation** :
-This feature helps you to rent transportations safely in your designated area
+This feature helps you to rent transportations safely in your designated area.
 
 4. **Landmarks** :
-This feature shows you the nearest and remarkable landmarks to visit in your designated area
+This feature shows you the nearest and remarkable landmarks to visit in your designated area.
 
 5. **Tourguide** :
-This feature helps you to rent tourguides in your designated area
+This feature helps you to rent tourguides in your designated area.
 
+6. **About** :
+This page will show all the information you need in this app and shows our main motive in creating this app.
 
 ###### What are the Instructions to build, run, and deploy the app?
 

@@ -12,7 +12,8 @@ by PT. Maju Indonesia Tourism **[Application@Heroku](google.com "Find your Touri
 
 ## FAQ? :
 ###### What is MID Tourism?
-MID Tourism is a **one stop web app** for those who want to take a break and enjoy travelling, yet struggle with the technicalities of getting your daily needs when arriving at your location of leisure. MID Tourism aims to make your trip the easiest it has ever been, 
+MID Tourism is a **one stop web app** for those who want to take a break and enjoy travelling, yet struggle with the technicalities of obtaining your daily needs when arriving at your location of leisure. We aim to make your trip the easiest it has ever been, while still maintaining the authenticity of the experience you are seeking. <br>
+MID Tourism, apart from servicing its users with ease-of-use and convenience, also offers much to the locale's residents. With opportunities for veritable  yet undeservedly unrecognized businesses such as rental transportation, hotels, restaurants, and tourguides, to exposure for the local landmarks, MID Tourism is headstrong in its mission to create a genuine bond between visitor and visitee. 
 
 ###### What are the features available on MID Tourism?
 MID Tourism provides you many features: ⤵️

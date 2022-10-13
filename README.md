@@ -110,3 +110,13 @@ This page will show all the information you need in this app and shows our main 
 
 6. Raphael Fide :
 - Tourguide Module
+
+## Possible User Roles
+1. Admins <br>
+Manages all of the other users and also manage any reservations (ex. removing reservations made by tourists)<br>
+2. Tourists <br>
+Tourists will create an account and will be able to see all of the modules and are able to make reservations(ex. tourguide reservations) <br>
+3. Tourguides <br>
+Tourguides will be able to create a schedule on when they can be reserved <br>
+4. Rental Transport Owners <br>
+Rental Transport Owners will be able to display their available vehicles and when they are available <br>

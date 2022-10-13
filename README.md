@@ -6,21 +6,22 @@ by PT. Maju Indonesia Tourism **[https://mid-tourism.herokuapp.com](google.com "
 1.**Install Prerequisites**
 > [Download Git](https://git-scm.com/downloads) <br>
 > [Download Python](https://www.python.org/downloads/) <br>
-> [Download IDE](https://www.jetbrains.com/pycharm/promo/?source=google&medium=cpc&campaign=14122963570&term=python%20editor&gclid=CjwKCAjw7p6aBhBiEiwA83fGupTYvWpJtZpacu_aDl69BH9haCoiEb1hkr8rq6L15hpDVdDNvn7pPhoCy4cQAvD_BwE)
+> [Download IDE](https://www.jetbrains.com/pycharm/promo/?source=google&medium=cpc&campaign=14122963570&term=python%20editor&gclid=CjwKCAjw7p6aBhBiEiwA83fGupTYvWpJtZpacu_aDl69BH9haCoiEb1hkr8rq6L15hpDVdDNvn7pPhoCy4cQAvD_BwE) <br>
 
 2.**Initialize the Django Project**
 > Clone into local(Git Clone) <br>
 > Create and run python environment <br>
->   python -m venv env <br>
->   env\Scripts\activate.bat <br>
+> `  python -m venv env  ` <br>
+> `  env\Scripts\activate.bat  ` <br>
 > Install dependencies (requirements.txt) <br>
->   pip install -r requirements.txt <br>
+> `  pip install -r requirements.txt  ` <br>
 
 3. **Branch the Repository**
 > Create a new branch for each module <br>
 > Push into your branch when done working <br>
->   git push <br>
+> `  git push  ` <br>
 > Merge into staging when done <br>
+> ##Do not push your work directly to main## <br>
 
 ## Workflow
 1. **Preliminaries and Planning**

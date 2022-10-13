@@ -21,7 +21,7 @@ by PT. Maju Indonesia Tourism **[https://mid-tourism.herokuapp.com](google.com "
 > Push into your branch when done working <br>
 > `  git push  ` <br>
 > Merge into staging when done <br>
-> ##Do not push your work directly to main## <br>
+> Do not push your work directly to main <br>
 
 ## Workflow
 1. **Preliminaries and Planning**

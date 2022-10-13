@@ -1,5 +1,5 @@
 from django.urls import path
-from midtourism.homepage.views import homepage
+from homepage.views import *
 
 app_name = 'homepage'
 

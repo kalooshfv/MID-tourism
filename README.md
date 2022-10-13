@@ -42,32 +42,32 @@ This page will show all the information you need in this app and shows our main 
 
 ## Workflow
 1. **Preliminaries and Planning**
-> Brainstorming session to find potentially useful features to-be-included in the final product
-> Assigning member roles based on said modules
-> Utilizing external tools to track progress of development (i.e. Motion, etc.)
-> Creation of Django project titled "MID Tourism"
-> Initial deployment of Heroku app
+> Brainstorming session to find potentially useful features to-be-included in the final product <br>
+> Assigning member roles based on said modules <br>
+> Utilizing external tools to track progress of development (i.e. Motion, etc.) <br>
+> Creation of Django project titled "MID Tourism" <br>
+> Initial deployment of Heroku app <br>
 
 2. **Assuring functionality of each feature**
-> Creating a Django app for each module
-> Creating a branch for each module in the Django project
-> Implementing the models, views, templates, and forms for each module (ala requirements)
-> Making dummy data for testing, and Django tests for coverage
-> Ensuring that each app works in its own isolated environment
-> Utilizing AJAX principles to implement asynchronous programming into each app when possible
+> Creating a Django app for each module <br>
+> Creating a branch for each module in the Django project <br>
+> Implementing the models, views, templates, and forms for each module (ala requirements) <br>
+> Making dummy data for testing, and Django tests for coverage <br>
+> Ensuring that each app works in its own isolated environment <br>
+> Utilizing AJAX principles to implement asynchronous programming into each app when possible <br>
 
 3. **Interconnecting the apps**
-> Creating a "homepage" that unites every app into one centralized place for easy access
-> Coding new views so the homepage can access every app via hyperlink
-> Developing 2 users: Customer and Admin; difference being Customer has no authorization beyond viewing, and Admin has various authorizations.
-> Merging every app into one branch "Staging"; dealing with any merge errors
+> Creating a "homepage" that unites every app into one centralized place for easy access <br>
+> Coding new views so the homepage can access every app via hyperlink <br>
+> Developing 2 users: Customer and Admin; difference being Customer has no authorization beyond viewing, and Admin has various authorizations <br>
+> Merging every app into one branch "Staging"; dealing with any merge errors <br>
 
 4. **UI/UX Design**
-> Utilizing external apps to design the design for each app and the homepage (i.e. Figma)
+> Utilizing external apps to design the design for each app and the homepage (i.e. Figma) <br>
 
 5. **UI/UX Implementation**
-> Using CSS frameworks such as Tailwind and Bootstrap to implement the design made in the earlier steps
-> Merging again into Staging to deal with potential merging errors and fixing every encounter
+> Using CSS frameworks such as Tailwind and Bootstrap to implement the design made in the earlier steps <br>
+> Merging again into Staging to deal with potential merging errors and fixing every encounter <br>
 
 6. **Deployment**
 > Pushing "Staging" to Main

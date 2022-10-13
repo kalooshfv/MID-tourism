@@ -3,12 +3,12 @@ MID-Tourism ✈️
 by PT. Maju Indonesia Tourism **[https://mid-tourism.herokuapp.com](google.com "Find your Tourism needs here!")**
 
 ###### What are the instructions to build, run, and deploy the app?
-1.**Install Prerequisites**
+1. **Install Prerequisites**
 > [Download Git](https://git-scm.com/downloads) <br>
 > [Download Python](https://www.python.org/downloads/) <br>
 > [Download IDE](https://www.jetbrains.com/pycharm/promo/?source=google&medium=cpc&campaign=14122963570&term=python%20editor&gclid=CjwKCAjw7p6aBhBiEiwA83fGupTYvWpJtZpacu_aDl69BH9haCoiEb1hkr8rq6L15hpDVdDNvn7pPhoCy4cQAvD_BwE) <br>
 
-2.**Initialize the Django Project**
+2. **Initialize the Django Project**
 > Clone into local(Git Clone) <br>
 > Create and run python environment <br>
 > `  python -m venv env  ` <br>
@@ -21,7 +21,7 @@ by PT. Maju Indonesia Tourism **[https://mid-tourism.herokuapp.com](google.com "
 > Push into your branch when done working <br>
 > `  git push  ` <br>
 > Merge into staging when done <br>
-> Do not push your work directly to main <br>
+> ***Do not push your work directly to main*** <br>
 
 ## Workflow
 1. **Preliminaries and Planning**

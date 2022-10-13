@@ -5,21 +5,31 @@ by PT. Maju Indonesia Tourism **[https://mid-tourism.herokuapp.com](google.com "
 ###### What are the instructions to build, run, and deploy the app?
 1.**Install Prerequisites**
 > [Download Git](https://git-scm.com/downloads) -
+
 > [Download Python](https://www.python.org/downloads/) -
+
 > [Download IDE](https://www.jetbrains.com/pycharm/promo/?source=google&medium=cpc&campaign=14122963570&term=python%20editor&gclid=CjwKCAjw7p6aBhBiEiwA83fGupTYvWpJtZpacu_aDl69BH9haCoiEb1hkr8rq6L15hpDVdDNvn7pPhoCy4cQAvD_BwE)
 
 2.**Initialize the Django Project**
 > Clone into local(Git Clone)
+
 > Create and run python environment
+
 >   python -m venv env
+
 >   env\Scripts\activate.bat
+
 > Install dependencies (requirements.txt)
+
 >   pip install -r requirements.txt
 
 3. **Branch the Repository**
 > Create a new branch for each module
+
 > Push into your branch when done working
+
 >   git push
+
 > Merge into staging when done
 
 ## Workflow

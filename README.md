@@ -36,6 +36,10 @@ This feature helps you to rent tourguides in your designated area.
 This page will show all the information you need in this app and shows our main motive in creating this app.
 
 ###### What are the instructions to build, run, and deploy the app?
+
+
+
+## Workflow
 1. **Preliminaries and Planning**
 > Brainstorming session to find potentially useful features to-be-included in the final product
 > Assigning member roles based on said modules

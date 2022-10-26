@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+
+{% block meta %}
+<style>
+    table, tr, th, td {
+        border: 1px solid black;
+        border-collapse:collapse;
+    }
+    th, td {
+        padding: 5px;
+    }
+</style>
+{% endblock meta %}
+
+{% block content %}
+<button><a href="{% url 'resto:create_resto' %}">Create your Own Resto!</a></button>
+<table>
+    <tr>
+        <th>Name</th>
+        <th>Address</th>
+        <th>Email</th>
+        <th>Phone Number</th>
+        <th>Description</th>
+        <th>Photo</th>
+        <th>More Info</th>
+        <th>Delete this Restaurant</th>
+    </tr>
+    {% for resto in restaurants %}
+    <tr>
+        <td>{{ resto.resto_name }}</td>
+        <td>{{ resto.resto_address }}</td>
+        <td>{{ resto.resto_email }}</td>
+        <td>{{ resto.resto_phone }}</td>
+        <td>{{ resto.resto_description }}</td>
+        <td><img src="{{ resto.resto_photo.url }}" alt ="No image" 
+            width=500 length=500></td>
+        
+        <td><button><a href= "{% url 'resto:show_restaurant_detail' resto.pk %}">More Info</a></button></td>
+        <td><button><a href="{% url 'resto:delete_restaurant' resto.pk %}">Delete Restaurant</a></button></td>
+    </tr>
+    {% endfor %}
+</table>
+{% endblock content %}

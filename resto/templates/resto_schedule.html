@@ -1,0 +1,78 @@
+{% extends 'base.html' %}
+
+{% block meta %}
+<style>
+    th, td {
+        padding: 5px;
+    }
+</style>
+{% endblock meta %}
+
+{% block content %}
+<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+<script>
+    var weekdays = {
+        "1": "Monday",
+        "2": "Tuesday",
+        "3": "Wednesday",
+        "4": "Thursday",
+        "5": "Friday",
+        "6": "Saturday",
+        "7": "Sunday"
+    };
+    $(document).ready(function refreshPage() {
+        var part1 = '<tr><th>'
+        var part2 = '</th><td>'
+        var part3 = '</td><td>'
+        var part4 = '</td></tr>'
+            $("#create").on('click', async function(e){
+                e.preventDefault()
+                $.ajax({
+                    method:'POST',
+                    url:"{% url 'resto:create_schedule' %}",
+                    data: {
+                        hours_weekday: $('#id_hours_weekday').val(),
+                        hours_from_hour: $('#id_hours_from_hour').val(),
+                        hours_to_hour: $('#id_hours_to_hour').val(),
+                    },
+                    success: async function(data){
+                        $.ajax({
+                            url: "{% url 'resto:hours_json' %}",
+                            method: 'GET',
+                            dataType: 'json',
+                            success: async function(result) {
+                                $('#view_schedule').empty()
+                                $(result).each(function(i, hours) {
+                                    $("#view_schedule")
+                                    .append(part1 + weekdays[hours.fields.hours_weekday] + part2 + 
+                                    hours.fields.hours_from_hour + part3 + hours.fields.hours_to_hour 
+                                    + part4);
+                                })
+                            }
+                        })
+                    }
+                })
+            })
+        })
+
+</script>
+<table>
+    <!-- enctype needed for displaying image -->
+    <form id="form" action = "" method = "POST">
+        {{ form.as_table }}
+        <tr><td colspan="2">
+            <button id="create" type="submit" name="submit" value="Create time slot">Create Time Slot</button>
+        </td></tr>
+    </form>
+</table>
+<table>
+    <div id="view_schedule">
+        <!-- Code to be added -->
+    </div>
+</table>
+
+<a href="{% url 'resto:show_restaurant_detail' id %}"><button>Finalize your schedule</button></a>
+
+{% endblock content %}

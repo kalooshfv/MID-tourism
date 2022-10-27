@@ -5,7 +5,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="{% static 'css/style.css' %}">
+  <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
   <link href=
     "https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" 
     rel="stylesheet" 
@@ -23,67 +23,83 @@
   {% endblock meta %}
 </head>
 
-<body>
-  <div class="overall_background">
-    <nav class="navbar navbar-expand navbar-light" style="background-color: #e3f2fd; opacity: 0.8;">
-      <div class="container-fluid">
-        <a class="navbar-brand" href="#">Navbar</a>
-        <button
-          class="navbar-toggler"
-          type="button"
-          data-mdb-toggle="collapse"
-          data-mdb-target="#navbarNav"
-          aria-controls="navbarNav"
-          aria-expanded="false"
-          aria-label="Toggle navigation"
-        >
-          <i class="fas fa-bars"></i>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarNav">
-          <ul class="navbar-nav">
-            <li class="nav-item">
-              <a class="nav-link active" aria-current="page" href="/">Home</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="about/">About</a>
-            </li>
-            {% if user.is_authenticated %}
-            <li class="nav-item">
-              <a class="nav-link" href="hotel/">Hotels</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="resto/">Restaurants</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="rental_transport/">Rental Transportation</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="landmarks/">Landmarks</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="tourguide/">Local Tourguides</a>
-            </li>
-            {% endif %}
-          </ul>
-        </div>
-        <div class="d-flex align-items-center">
-          <button type="button" class="btn btn-link px-3 me-2">
-            Login
-          </button>
-          <button type="button" class="btn btn-primary me-3">
-            Sign up for free
-          </button>
-          <a
-            class="btn btn-dark px-3"
-            href="https://github.com/diablofied/MID-tourism"
-            role="button"
-            ><i class="fab fa-github"></i
-          ></a>
-        </div>
+<body style="overflow-x:hidden">
+  
+  <!-- Main navigation -->
+<header>
+  <!--Navbar-->
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark scrolling-navbar">
+    <div class="container">
+      <a class="navbar-brand" href="#">
+        <strong>MID</strong>
+      </a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent-7" aria-controls="navbarSupportedContent-7" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarSupportedContent-7">
+        <ul class="navbar-nav mr-auto">
+          <li class="nav-item active">
+            <a class="nav-link" href="/">Home
+              <span class="sr-only">(current)</span>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">About</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">Transporations</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">Restaurants</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">Landmarks</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">Hotel</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">Tourguide</a>
+          </li>
+        </ul>
       </div>
-    </nav>
+      <div class="d-flex align-items-center">
+        <button type="button" class="btn btn-link px-3 me-2">
+          Login
+        </button>
+        <button type="button" class="btn btn-primary me-3">
+          Sign up for free
+        </button>
+        <a
+          class="btn btn-dark px-3"
+          href="https://github.com/diablofied/MID-tourism"
+          target=”_blank”
+          role="button"
+          ><i class="fab fa-github"></i
+        ></a>
+      </div>
+    </div>
+  </nav>
+</header>
+<!--Main Layout-->
   {% block content %}
   {% endblock content %}
-  </div>
+  <footer class="bg-light text-center text-lg-start">
+    <!-- Copyright -->
+    <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.2);">
+      © 2022 Copyright: <br>
+      <b>PBD Group Assignment</b> <br>
+      Dylan Pribadi ||
+      Halomoan Geraldo ||
+      Kaloosh Falito Verrell ||
+      Mohammad Attar ||
+      Nicholas Lexi ||
+      Raphael Fide Christiano
+    </div>
+    <!-- Copyright -->
+  </footer>
 </body>
 </html>
+
+
+

@@ -1,0 +1,142 @@
+{% extends 'base.html' %}
+
+{% block meta %}
+<title>Hotel</title>
+{% endblock meta %}
+
+{% block content %}
+<script>
+    $(document).ready(function() {
+        function card(task) {
+        return `
+        <div class="col">
+                <div class="card text-white bg-success mb-3" style="width: 18rem; border-radius: 10px;">
+                    <div class="card-body">
+                        <h5 class="card-title">${hotel.fields.hotel_name}</h5>
+                        <p class="card-text">${hotel.fields.description}</p>
+                        <a href="delete_task/${hotel.pk}" class="btn btn-dark">Delete</a>         
+                    </div>
+                </div>
+        </div>
+        `
+        };
+        $('input[name="dates"]').daterangepicker();
+        function loop() {
+            $.get("{% url 'hotel:show_json' %}", function(data) {
+                $.each(data, function(i, value) {
+                    $("#container0").append(card(value));
+                });
+            });
+        };
+        $("#submitbutton").click(e => {
+        e.preventDefault();
+        const csrftoken = document.querySelector(
+            "[name=csrfmiddlewaretoken]"
+        ).value;
+        var radios = $("[name=inlineRadioOptions]");
+        for (var i = 0, length = radios.length; i < length; i++) {
+            if (radios[i].checked) {
+                radiovalue = radios[i].value;
+                break;
+            }
+        }
+        $.ajax({
+            type: "POST",
+            url: "{% url 'hotel:add' %}",
+            headers: { "X-CSRFToken": csrftoken },
+            mode: "same-origin",
+            data: {
+                hotel_name: $("#nametext").val(),
+                hotel_address: $("#addresstext").val(),
+                email: $('emailinput').val(),
+                star: radiovalue,
+                description: $("#descriptiontext").val(),
+            },
+            success: response => {
+                $("#modalform").trigger("reset");
+                $("#container0").prepend(card(response));
+            },
+            error: error => {
+                console.log(error);
+            },
+            });
+        });
+        loop();
+    })
+</script>
+
+<style>
+    body {
+        margin : 10vh 0 10vh 0;
+    }
+</style>
+
+<body>
+    <input type="text" name="dates">
+
+    <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h1 class="modal-title fs-5" id="staticBackdropLabel">Add Task</h1>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form method="POST" action="" id="modalform">
+                    {% csrf_token %} 
+                    <div class="mb-3">
+                      <label for="nametext" class="form-label">Name</label>
+                      <input type="text" class="form-control" id="nametext" aria-describedby="emailHelp" name="titletext">
+                    </div>
+                    <div class="mb-3">
+                      <label for="addresstext" class="form-label">Address</label>
+                      <input type="text" class="form-control" id="addresstext" name="descriptiontext">
+                    </div>
+                    <div class="mb-3">
+                        <label for="emailinput" class="form-label">Email</label>
+                        <input type="email" class="form-control" id="emailinput" name="descriptiontext">
+                    </div>
+                    <div class="mb-3">
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="option1">
+                            <label class="form-check-label" for="inlineRadio1">1</label>
+                          </div>
+                          <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="option2">
+                            <label class="form-check-label" for="inlineRadio2">2</label>
+                          </div>
+                          <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio3" value="option2">
+                            <label class="form-check-label" for="inlineRadio2">3</label>
+                          </div>
+                          <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio4" value="option2">
+                            <label class="form-check-label" for="inlineRadio2">4</label>
+                          </div>
+                          <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio5" value="option2">
+                            <label class="form-check-label" for="inlineRadio2">5</label>
+                          </div>
+                    </div>
+                    <div class="mb-3">
+                        <label for="descriptiontext" class="form-label">Description</label>
+                        <input type="text" class="form-control" id="descriptiontext" name="descriptiontext">
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+              <button type="submit" class="btn btn-secondary" data-bs-dismiss="modal" id="submitbutton">Submit</button>
+            </div>
+          </div>
+        </div>
+    </div>
+
+    <button type="button" class="add-task" data-bs-toggle="modal" data-bs-target="#staticBackdrop">Add Hotel</button>
+
+    <div style="padding-left: 10px; padding-right: 15px;">
+        <div class="row row-cols-1 row-cols-md-5 g-4" id="container0">
+    
+        </div>
+    </div>
+</body>
+{% endblock content %}

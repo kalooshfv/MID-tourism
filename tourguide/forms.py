@@ -2,9 +2,6 @@ from django import forms
 from .models import Task
 from django.forms import TextInput
 
-# class DateForm(forms.Form):
-#     date = forms.DateTimeField(input_formats=['%d/%m/%Y %H:%M'])
-    
 class TaskForms(forms.ModelForm):
     class Meta:
         model = Task

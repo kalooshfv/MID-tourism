@@ -1,0 +1,58 @@
+{% extends 'base.html' %}
+{% block content %}
+<style>
+    table{
+        margin-left: auto;
+        margin-right: auto;
+        align-self: center;
+        align-items: center;
+        background-color: pink;
+        border-collapse: collapse;
+        border: 2px solid yellow;
+    }
+    h5, p {
+        text-align: center;
+    }
+    h1 {
+      color: aliceblue;
+    }
+</style>
+<body style="background-color: gray ;">
+
+<nav class="navbar default navbar-expand-lg navbar navbar-dark bg-dark">
+    <div class="container-fluid">
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+          <li class="nav-item">
+            <h1>Username</h1>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+<h5>Transport</h5>
+<p></p>
+
+<table>
+    <tr>
+        <th>Transport Name</th>
+        <th>Transport Price</th>
+        <th>Description</th>
+    </tr>
+    {% comment %} Add the data below this line {% endcomment %}
+    {% for item in transport_item %}
+    <tr>
+        <th>{{item.transport_name}}</th>
+        <th>{{item.transport_price}}</th>
+        <th>{{item.description}}</th>
+    </tr>
+    {% endfor %}
+</table>
+<br>
+
+</body>
+{% endblock content %}

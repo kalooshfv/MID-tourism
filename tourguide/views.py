@@ -80,6 +80,7 @@ def show_json(request):
 def add_schedule(request):
     if request.method == "POST":
         date = request.POST.get("date")
+        print(date)
         destination = request.POST.get("destination")
         task = Task.objects.create(
             user=request.user,
@@ -87,11 +88,12 @@ def add_schedule(request):
             destination=destination,
         )
         task.save()
+        print(task.user)
         return JsonResponse(
             {
                 "pk": task.id,
                 "fields": {
-                    "user":task.user,
+                    "user":task.user.username,
                     "date": task.date,
                     "destination": task.destination,
                 },

@@ -1,9 +1,8 @@
 {% extends 'base.html' %}
 {% block content %}
-  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/datepicker/0.6.5/datepicker.min.css" integrity="sha256-b88RdwbRJEzRx95nCuuva+hO5ExvXXnpX+78h8DjyOE=" crossorigin="anonymous"/>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/datepicker/0.6.5/datepicker.min.js" integrity="sha256-/7FLTdzP6CfC1VBAj/rsp3Rinuuu9leMRGd354hvk0k=" crossorigin="anonymous"></script>
+<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/datepicker/0.6.5/datepicker.min.css" integrity="sha256-b88RdwbRJEzRx95nCuuva+hO5ExvXXnpX+78h8DjyOE=" crossorigin="anonymous"/>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/datepicker/0.6.5/datepicker.min.js" integrity="sha256-/7FLTdzP6CfC1VBAj/rsp3Rinuuu9leMRGd354hvk0k=" crossorigin="anonymous"></script>
 </head>
 <body>
 
@@ -29,7 +28,10 @@
             });
         });
     };
-    $("#datepicker").datepicker({});
+    $("#datepicker").datepicker({
+        autoHide: true,
+        zIndex: 2048,
+      });
     $("#submitbutton").click(e => {
       e.preventDefault();
       const csrftoken = document.querySelector(
@@ -41,8 +43,8 @@
           headers: { "X-CSRFToken": csrftoken },
           mode: "same-origin",
           data: {
-            title: $("#titleinput").val(),
-            description: $("#descinput").val(),
+            date: $("#titleinput").val(),
+            destination: $("#descinput").val(),
           },
           success: response => {
             $("#addtask").trigger("reset");
@@ -74,6 +76,9 @@
     .datepicker {
       z-index: 999999 !important;
     }
+    .modal-backdrop {
+      z-index: 1;
+    }
 </style>
 <div class="MakeMarginOmegalol">
 <h1>User:{{user}}</h1>
@@ -90,10 +95,10 @@
             {% csrf_token %}
             <div class="col text-center">
             <div class="form-floating mb-3 w-10">
-                <input  type="text" class="form-control" name="title" id="datepicker" placeholder="Task Name">
+                <input  type="text" class="form-control" name="date" id="datepicker" placeholder="Task Name">
                 <label for="floatingInput">Date</label></div>
                 <div class="form-floating">
-                <input type="text" class="form-control" name="description" id="descinput" placeholder="Task Name" required>
+                <input type="text" class="form-control" name="destination" id="descinput" placeholder="Task Name" required>
                 <label for="floatingInput">Destination</label>
                 <button class="btn btn-success my-3" type="submit" id="submitbutton" data-bs-dismiss="modal">Create Schedule</button>
             </div>

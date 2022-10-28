@@ -9,5 +9,5 @@ class Task(models.Model):
         on_delete=models.CASCADE,
         null = True,
     )
-    date = models.DateField(default=datetime.date.today)
+    date = models.DateField(null = True,default=datetime.date.today)
     destination = models.CharField(max_length=255)

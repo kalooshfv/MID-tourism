@@ -67,13 +67,14 @@ def delete_hotel(request, id):
     object.delete()
     return HttpResponseRedirect(reverse("hotel:show_hotel"))
 
-def add(request):
+def add_hotel(request):
     if request.method == "POST":
         hotel_name = request.POST.get("hotel_name")
         hotel_address = request.POST.get("hotel_address")
+        hotel_photo = request.POST.get("hotel_photo")
         email = request.POST.get("hotel_email")
         star = request.POST.get("star")
-        description = request.POST.get("description")
+        description = request.POST.get("description")  
         hotel = Hotel.objects.create(
             hotel_name=hotel_name,
             hotel_address=hotel_address,
@@ -87,11 +88,11 @@ def add(request):
                 "fields": {
                     "hotel_name" : hotel_name,
                     "hotel_address": hotel_address,
+                    "hotel_photo" : hotel_photo,
                     "email": email,
                     "star": star,
                     "description": hotel.description,
                 },
             },
-            
             status=200,
         )

@@ -45,7 +45,7 @@
         }
         $.ajax({
             type: "POST",
-            url: "{% url 'hotel:add' %}",
+            url: "{% url 'hotel:add_hotel' %}",
             headers: { "X-CSRFToken": csrftoken },
             mode: "same-origin",
             data: {
@@ -92,7 +92,7 @@
                     </div>
                     <div class="mb-3">
                         <label for="emailinput" class="form-label">Email</label>
-                        <input type="email" class="form-control" id="emailinput" name="descriptiontext">
+                        <input type="email" class="form-control" id="emailinput" name="emailinput">
                     </div>
                     <div class="mb-3">
                         <label class="form-label">Star</label><br>
@@ -130,7 +130,7 @@
         </div>
     </div>
 
-    <button type="button" class="add-task" data-bs-toggle="modal" data-bs-target="#staticBackdrop">Add Hotel</button>
+    <button type="button" class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#staticBackdrop">Add Hotel</button>
 
     <div style="padding-left: 10px; padding-right: 15px;">
         <div class="row row-cols-1 row-cols-md-5 g-4" id="container0">

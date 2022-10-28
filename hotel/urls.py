@@ -11,5 +11,5 @@ urlpatterns = [
     path('create_room/<int:id>', create_room, name='create_room'),
     path('delete_hotel/<int:id>', delete_hotel, name='delete_hotel'),
     path('delete_room/<int:room_id>/<int:hotel_id>', delete_room, name='delete_room'),
-    path('add/', add, name='add'),
+    path('add_hotel/', add_hotel, name='add_hotel'),
 ]

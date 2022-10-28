@@ -72,7 +72,7 @@ def add_hotel(request):
         hotel_name = request.POST.get("hotel_name")
         hotel_address = request.POST.get("hotel_address")
         hotel_photo = request.POST.get("hotel_photo")
-        email = request.POST.get("hotel_email")
+        email = request.POST.get("email")
         star = request.POST.get("star")
         description = request.POST.get("description")  
         hotel = Hotel.objects.create(

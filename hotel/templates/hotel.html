@@ -10,14 +10,15 @@
         function card(hotel) {
         return `
         <div class="col">
-            <div class="card text-white bg-success mb-3" style="width: 18rem; border-radius: 10px;">
+            <div class="card text-white bg-secondary mb-3" style="width: 25vw; border-radius: 10px;">
                 <div class="card-body">
-                    <h5 class="card-title">${hotel.fields.hotel_name}</h5>
-                    <p class="card-text">${hotel.fields.hotel_address}</p>
-                    <p class="card-text">${hotel.fields.email}</p>
+                    <h4 class="card-title">${hotel.fields.hotel_name}</h4>
+                    <h6 class="card-subtitle">${hotel.fields.hotel_address}</h6>
+                    <p class="card-subtitle">${hotel.fields.email}</p>
                     <p class="card-text">${hotel.fields.star}</p>
                     <p class="card-text">${hotel.fields.description}</p>
-                    <a href="delete_hotel/${hotel.pk}" class="btn btn-dark">Delete</a>         
+                    <a href="room/${hotel.pk}" class="btn btn-light">Check Availability</a>
+                    <a href="delete_hotel/${hotel.pk}" class="btn btn-dark" style="margin-left:0.5rem;">Delete</a>
                 </div>
             </div>
         </div>
@@ -51,7 +52,7 @@
             data: {
                 hotel_name: $("#nametext").val(),
                 hotel_address: $("#addresstext").val(),
-                email: $('emailinput').val(),
+                email: $('#emailinput').val(),
                 star: radiovalue,
                 description: $("#descriptiontext").val(),
             },
@@ -76,7 +77,7 @@
         <div class="modal-dialog">
           <div class="modal-content">
             <div class="modal-header">
-              <h1 class="modal-title fs-5" id="staticBackdropLabel">Add Task</h1>
+              <h1 class="modal-title fs-5" id="staticBackdropLabel">Add Hotel</h1>
               <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
@@ -84,15 +85,15 @@
                     {% csrf_token %} 
                     <div class="mb-3">
                       <label for="nametext" class="form-label">Name</label>
-                      <input type="text" class="form-control" id="nametext" aria-describedby="emailHelp" name="titletext">
+                      <input type="text" class="form-control" id="nametext" aria-describedby="emailHelp" name="titletext" required>
                     </div>
                     <div class="mb-3">
                       <label for="addresstext" class="form-label">Address</label>
-                      <input type="text" class="form-control" id="addresstext" name="descriptiontext">
+                      <input type="text" class="form-control" id="addresstext" name="addresstext" required>
                     </div>
                     <div class="mb-3">
                         <label for="emailinput" class="form-label">Email</label>
-                        <input type="email" class="form-control" id="emailinput" name="emailinput">
+                        <input type="email" class="form-control" id="emailinput" name="emailinput" required>
                     </div>
                     <div class="mb-3">
                         <label class="form-label">Star</label><br>
@@ -119,7 +120,7 @@
                     </div>
                     <div class="mb-3">
                         <label for="descriptiontext" class="form-label">Description</label>
-                        <input type="text" class="form-control" id="descriptiontext" name="descriptiontext">
+                        <input type="text" class="form-control" id="descriptiontext" name="descriptiontext" required>
                     </div>
                 </form>
             </div>
@@ -132,8 +133,8 @@
 
     <button type="button" class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#staticBackdrop">Add Hotel</button>
 
-    <div style="padding-left: 10px; padding-right: 15px;">
-        <div class="row row-cols-1 row-cols-md-5 g-4" id="container0">
+    <div style="padding-left: 10px; padding-right: 15px; margin-top: 5vh;">
+        <div class="row row-cols-1 row-cols-md-3 g-4" id="container0">
     
         </div>
     </div>

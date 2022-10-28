@@ -1,0 +1,23 @@
+from django import forms
+from .models import Task
+from django.forms import TextInput
+
+# class DateForm(forms.Form):
+#     date = forms.DateTimeField(input_formats=['%d/%m/%Y %H:%M'])
+    
+class TaskForms(forms.ModelForm):
+    class Meta:
+        model = Task
+        fields=["date","destination",]
+        widgets = {
+            'date':TextInput(attrs={
+                'class':'form-control',
+                'style':'max-width:300px',
+                'placeholder':'Task Title'
+                }), 
+            'destination':TextInput(attrs={
+                'class':'form-control',
+                'style':'max-width:300px',
+                'placeholder':'Description'
+                })
+        }

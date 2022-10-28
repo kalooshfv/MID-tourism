@@ -1,0 +1,120 @@
+{% extends 'base.html' %}
+
+{% block meta %}
+<style>
+    table, tr, th, td {
+        border: 1px solid black;
+        border-collapse:collapse;
+    }
+    th, td {
+        padding: 5px;
+    }
+</style>
+{% endblock meta %}
+
+{% block content %}
+<div class="resto_bg p-5 text-center bg-light">
+    <span style="color:white">
+        <h1 class="mb-3">Restaurants</h1>
+        <h4 class="mb-3">Find the best cuisine in your location of choice!</h4>
+    </span>
+</div>
+<div class="container" style="min-height:75vh">
+    <div id ="grid" class="row mb-3 mt-3">
+    
+    </div>
+</div>
+{% endblock content %}
+
+<script>
+    $(document).ready(function() {
+        function card(resto) {
+            return `
+            <div class="col-lg-4 mb-4">
+                <div class="card mb-3 mt-3 pl-3 pr-3">
+                    <img class="card-img-top" src="${ resto.fields.resto_photo.url }" alt ="No image">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ resto.resto_name }}</h5>
+                        <h6 class="card-subtitle mb-2 text-muted">${ resto.fields.resto_address }</h6>
+                        <p class="card-text"> 
+                            ${ resto.fields.resto_description }
+                        </p>
+                    </div>
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item"><b>Email:</b> ${ resto.resto_email }</li>
+                        <li class="list-group-item"><b>Phone Number:</b> ${ resto.fields.resto_phone }</li>
+                        <li class="list-group-item"><b>Website:</b> ${ resto.fields.resto_delivery }</li>
+                    </ul>
+                    <div class="card-footer">
+                        <td><button class="btn btn-outline-secondary"><a href= "{% url 'resto:show_restaurant_detail' resto.pk %}">More Info</a></button></td>
+                        <td><button class="btn btn-outline-secondary"><a href="{% url 'resto:delete_restaurant' resto.pk %}">Delete Restaurant</a></button></td>
+                    </div>
+                </div>
+            </div>
+            `
+        };
+        $.ajax({
+            url: "{% url 'resto:show_json_restaurant' %}", // get json data
+            method: 'GET',
+            dataType: 'json',
+            success: function(data) {
+                $(result).each(function(i, value) {  // add content into #grid
+                    $("#grid").append(card(value));
+            }
+        }
+    })  
+});
+</script>
+<!--<button><a href="{% url 'resto:create_resto' %}">Create your Own Resto!</a></button>-->
+    <!--<table>
+        <tr>
+            <th>Name</th>
+            <th>Address</th>
+            <th>Email</th>
+            <th>Phone Number</th>
+            <th>Description</th>
+            <th>Photo</th>
+            <th>More Info</th>
+            <th>Delete this Restaurant</th>
+        </tr>
+        {% for resto in restaurants %}
+        <tr>
+            <td>{{ resto.resto_name }}</td>
+            <td>{{ resto.resto_address }}</td>
+            <td>{{ resto.resto_email }}</td>
+            <td>{{ resto.resto_phone }}</td>
+            <td>{{ resto.resto_description }}</td>
+            <td><img src="{{ resto.resto_photo.url }}" alt ="No image" 
+                width=500 length=500></td>
+            
+            <td><button><a href= "{% url 'resto:show_restaurant_detail' resto.pk %}">More Info</a></button></td>
+            <td><button><a href="{% url 'resto:delete_restaurant' resto.pk %}">Delete Restaurant</a></button></td>
+        </tr>
+        {% endfor %}
+    </table>
+
+{% for resto in restaurants %}
+    <div class="col-lg-4 mb-4">
+        <div class="card mb-3 mt-3 pl-3 pr-3">
+            <img class="card-img-top" src="{{ resto.resto_photo.url }}" alt ="No image">
+            <div class="card-body">
+                <h5 class="card-title">{{ resto.resto_name }}</h5>
+                <h6 class="card-subtitle mb-2 text-muted">{{ resto.resto_address }}</h6>
+                <p class="card-text"> 
+                    {{ resto.resto_description }}
+                </p>
+            </div>
+            <ul class="list-group list-group-flush">
+                <li class="list-group-item"><b>Email:</b> {{ resto.resto_email }}</li>
+                <li class="list-group-item"><b>Phone Number:</b> {{ resto.resto_phone }}</li>
+                <li class="list-group-item"><b>Website:</b> {{ resto.resto_delivery }}</li>
+            </ul>
+            <div class="card-footer">
+                <td><button class="btn btn-outline-secondary"><a href= "{% url 'resto:show_restaurant_detail' resto.pk %}">More Info</a></button></td>
+                <td><button class="btn btn-outline-secondary"><a href="{% url 'resto:delete_restaurant' resto.pk %}">Delete Restaurant</a></button></td>
+            </div>
+        </div>
+    </div>
+{% endfor %}
+
+-->

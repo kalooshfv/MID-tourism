@@ -7,19 +7,19 @@
 {% block content %}
 <script>
     $(document).ready(function() {
-        function card(task) {
+        function card(hotel) {
         return `
         <div class="col">
-                <div class="card text-white bg-success mb-3" style="width: 18rem; border-radius: 10px;">
-                    <div class="card-body">
-                        <h5 class="card-title">${hotel.fields.hotel_name}</h5>
-                        <p class="card-text">${hotel.fields.hotel_address}</p>
-                        <p class="card-text">${hotel.fields.email}</p>
-                        <p class="card-text">${hotel.fields.star}</p>
-                        <p class="card-text">${hotel.fields.description}</p>
-                        <a href="delete_task/${hotel.pk}" class="btn btn-dark">Delete</a>         
-                    </div>
+            <div class="card text-white bg-success mb-3" style="width: 18rem; border-radius: 10px;">
+                <div class="card-body">
+                    <h5 class="card-title">${hotel.fields.hotel_name}</h5>
+                    <p class="card-text">${hotel.fields.hotel_address}</p>
+                    <p class="card-text">${hotel.fields.email}</p>
+                    <p class="card-text">${hotel.fields.star}</p>
+                    <p class="card-text">${hotel.fields.description}</p>
+                    <a href="delete_hotel/${hotel.pk}" class="btn btn-dark">Delete</a>         
                 </div>
+            </div>
         </div>
         `
         };
@@ -68,13 +68,8 @@
     })
 </script>
 
-<style>
-    body {
-        margin : 10vh 0 10vh 0;
-    }
-</style>
-
 <body>
+    <div style="margin: 5vh 5vh 5vh 5vh;">
     <input type="text" name="dates">
 
     <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
@@ -102,23 +97,23 @@
                     <div class="mb-3">
                         <label class="form-label">Star</label><br>
                         <div class="form-check form-check-inline">
-                            <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="option1">
+                            <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value=1>
                             <label class="form-check-label" for="inlineRadio1">1</label>
                           </div>
                           <div class="form-check form-check-inline">
-                            <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="option2">
+                            <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value=2>
                             <label class="form-check-label" for="inlineRadio2">2</label>
                           </div>
                           <div class="form-check form-check-inline">
-                            <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio3" value="option2">
+                            <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio3" value=3>
                             <label class="form-check-label" for="inlineRadio2">3</label>
                           </div>
                           <div class="form-check form-check-inline">
-                            <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio4" value="option2">
+                            <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio4" value=4>
                             <label class="form-check-label" for="inlineRadio2">4</label>
                           </div>
                           <div class="form-check form-check-inline">
-                            <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio5" value="option2">
+                            <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio5" value=5>
                             <label class="form-check-label" for="inlineRadio2">5</label>
                           </div>
                     </div>
@@ -141,6 +136,7 @@
         <div class="row row-cols-1 row-cols-md-5 g-4" id="container0">
     
         </div>
+    </div>
     </div>
 </body>
 {% endblock content %}

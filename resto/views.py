@@ -32,6 +32,11 @@ def create_restaurant(request):
     context = {'form': form}
     return render(request, 'resto_form.html', context)
 
+def show_json_restaurant(request):
+    data = Restaurant.objects.all()
+    return HttpResponse(serializers.serialize("json", data), \
+        content_type="application/json")
+
 def show_restaurant_detail(request, id):
     restaurant = Restaurant.objects.get(pk = id)
     data_menu_items = Food.objects.filter(food_resto = restaurant)

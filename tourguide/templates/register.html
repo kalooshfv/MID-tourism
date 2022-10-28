@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+
+{% block meta %}
+<title>Account Registration</title>
+{% endblock meta %}
+
+{% block content %}  
+<style>
+    .login{
+      margin-left: 5px;
+      margin-bottom: 10px;
+      margin-top:10px;
+    }
+  </style>
+<div class = "login">
+    
+    <h1>Registration Form</h1>  
+
+        <form method="POST" >  
+            {% csrf_token %}  
+            <table>  
+                {{ form.as_p }}  
+                <tr>  
+                    <td></td>
+                    <td><input class="btn btn-secondary" type="submit" name="submit" value="Register"/></td>  
+                </tr>  
+            </table>  
+        </form>
+
+    {% if messages %}  
+        <ul>   
+            {% for message in messages %}  
+                <li>{{ message }}</li>  
+                {% endfor %}  
+        </ul>   
+    {% endif %}
+
+</div>  
+
+{% endblock content %}

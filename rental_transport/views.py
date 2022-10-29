@@ -54,3 +54,9 @@ def remove_transport(request, id):
     itemtodelete = TransportList.objects.get(pk=id)
     itemtodelete.delete()
     return redirect('rental_transport:show_transportlist')
+
+def change_availability(request, id):
+    itemtochange = TransportList.objects.get(pk=id)
+    itemtochange.availability = not itemtochange.availability
+    itemtochange.save()
+    return redirect('rental_transport:show_transportlist')

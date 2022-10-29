@@ -1,3 +1,5 @@
+from email.policy import default
+from ssl import DefaultVerifyPaths
 from django.db import models
 from django.contrib.auth.models import User
 from django.conf import settings
@@ -8,4 +10,4 @@ class TransportList(models.Model):
     transport_name = models.CharField(max_length=50)
     transport_price = models.TextField()
     description = models.TextField()
-    availability = models.CharField(max_length=10, default='Available')
+    availability = models.BooleanField(default=True)

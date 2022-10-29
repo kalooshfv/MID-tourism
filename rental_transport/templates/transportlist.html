@@ -7,31 +7,83 @@
 
 {% endblock meta %}
 {% block content %}
+<style>
+    a {
+        text-decoration: none;
+        color:inherit;
+    }
+    a:hover {
+        color:inherit;
+    }
+    .huh {
+        margin-left: 5px;
+        margin-bottom: 10px;
+    }
+    button {
+        margin-top:10px ;
+        margin-bottom: 10px;
+    }
+    .card-body:hover {
+        cursor : pointer;
+        box-shadow : 5px 5px 5px 5px rgba(0,0,0,0.1);
+        transform: scale(1.05);
+    }
+    .card-title {
+        color:black
+    }
+    .card-av {
+        color:green
+    }
+    .card-unav {
+        color:red
+    }
+    h1 {
+        text-align: center;
+        margin-top: 10px;
+        font-family: Verdana, Geneva, Tahoma, sans-serif;
+    }
+</style>
 <script>
   $(document).ready(function() {
       function card(transportss) {
           return `
-              <div class="col">
-                <div class="card text-bg-primary mb-3" style="max-width: 18rem;">
+        <div class="col">
+            ${transportss.fields.availability ? 
+                `
+                <div class="card text-dark bg-light" style="width: 100%;">
                     <div class="card-body">
+                        <h5 class="card-av">Available<h5>
                         <h5 class="card-title">${transportss.fields.company_name}</h5>
-                        <p class="card-text">${transportss.fields.transport_name}</p>
+                        <h6 class="card-subtitle mb-2">${transportss.fields.transport_name}</h6>
                         <p class="card-text">${transportss.fields.transport_price}</p>
                         <p class="card-text">${transportss.fields.description}</p>
-                        <p class="card-text">${transportss.fields.availability}</p>
-                        
-                        <a href="remove_transport/${transportss.pk}" class="btn btn-dark">Delete</a>
-                        
+                        <a href="change_availability/${transportss.pk}" class="btn btn-outline-dark">Change availability</a>
+                        <a href="remove_transport/${transportss.pk}" class="btn btn-outline-dark">Delete</a>         
                     </div>
                 </div>
-            </div>
+                `
+                :
+                `
+                <div class="card text-dark bg-light" style="width: 100%;">
+                    <div class="card-body">
+                        <h5 class="card-unav">Unavailable<h5>
+                        <h5 class="card-title">${transportss.fields.company_name}</h5>
+                        <h6 class="card-subtitle mb-2 text-muted">${transportss.fields.transport_name}</h6>
+                        <p class="card-text">${transportss.fields.transport_price}</p>
+                        <p class="card-text">${transportss.fields.description}</p>
+                        <a href="change_availability/${transportss.pk}" class="btn btn-outline-dark">Change availability</a>
+                        <a href="remove_transport/${transportss.pk}" class="btn btn-outline-dark">Delete</a>  
+                    </div>
+                </div>
+                `
+            }
         </div>
         `
       };
       function loop() {
         $.get("{% url 'rental_transport:show_json' %}", function(data) {
             $.each(data, function(i, value) {
-                $("#refer").append(card(value));console.log(i)
+                $("#hoy").append(card(value));console.log(i)
             });
         });
     };
@@ -53,8 +105,8 @@
 
           },
           success: response => {
-            $("#addtask").trigger("reset");
-            $("#refer").prepend(card(response));
+            $("#addtransportss").trigger("reset");
+            $("#hoy").prepend(card(response));
           },
           error: error => {
             console.log(error);
@@ -64,31 +116,10 @@
     loop();
 });
 </script>
-<style>
-    a {
-        text-decoration: none;
-        color:inherit;
-    }
-    a:hover {
-        color:inherit;
-    }
-    .huh {
-        margin-left: 5px;
-        margin-bottom: 10px;
-    }
-    button {
-        margin-bottom: 10px;
-    }
-    .transportname {
-      z-index: 999999 !important;
-    }
-    .modal-backdrop {
-      z-index: 1;
-    }
-</style>
+<h1> Vehicles you can rent! </h1>
 <div class="huh">
 
-  <div class="modal fade" id="modalinterior" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal" id="inside" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="false">
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
@@ -96,30 +127,26 @@
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
-          <form method="post" id="addtask">
+          <form method="post" id="addtransportss">
               {% csrf_token %}
               <div class="col text-center">
               <div class="form-floating mb-3 w-10">
                   <div class="form-floating">
-                  <input type="text" class="form-control" name="company" id="companyname" placeholder="Task Name" required>
-                  <label for="floatingInput">Company Name</label>
+                    <input type="text" class="form-control" name="company" id="companyname" placeholder="transportss Name" required>
+                    <label for="floatingInput">Company Name</label>
                   </div>
                   <div class="form-floating">
-                  <input  type="text" class="form-control"  id="transportname" placeholder="Task Name">
-                  <label for="floatingInput">Vehicle Type</label>
+                    <input  type="text" class="form-control"  id="transportname" placeholder="transportss Name">
+                    <label for="floatingInput">Vehicle Type</label>
                   </div>
                   <div class="form-floating">
-                  <input type="text" class="form-control"  id="transportprice" placeholder="Task Name" required>
-                  <label for="floatingInput">Price</label>
+                    <input type="text" class="form-control"  id="transportprice" placeholder="transportss Name" required>
+                    <label for="floatingInput">Price</label>
                   </div>
                   <div class="form-floating">
-                  <input  type="text" class="form-control"  id="descriptiontxt" placeholder="Task Name">
-                  <label for="floatingInput">Description</label>
-                  </div>
-                  <div class="form-floating">
-                  <input  type="text" class="form-control"  id="availability" placeholder="Task Name">
-                  <label for="floatingInput">Availability</label>
-                  <button class="btn btn-success my-3" type="submit" id="submitbutton" data-bs-dismiss="modal">Add</button>
+                    <input  type="text" class="form-control"  id="descriptiontxt" placeholder="transportss Name">
+                    <label for="floatingInput">Description</label>
+                        <button class="btn btn-outline-dark" type="submit" id="submitbutton" data-bs-dismiss="modal">Add</button>
                   </div>
               </div>
               </div>
@@ -129,10 +156,10 @@
     </div>
   </div>
   
-  <button type="button" class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#modalinterior">
+  <button type="button" class="btn btn-secondary btn-lg btn-block" data-bs-toggle="modal" data-bs-target="#inside">
     Add New Rental Vehicle
   </button>
   
-<div id="refer" class="row row-cols-1 row-cols-md-5 g-4 mx-5"></div>
+<div id="hoy" class="row row-cols-1 row-cols-md-5 g-4 mx-5"></div>
 </div>
 {% endblock content %}

@@ -5,6 +5,15 @@
     table, tr, th, td {
         border-collapse:collapse;
     }
+    .login_reg_bg {
+        height: 25vh; 
+        width: 100vw; 
+        background-image: url('/static/img/log_reg.png'); 
+        background-repeat: no-repeat; 
+        background-size: cover; 
+        background-position: center; 
+        padding: 20;
+    }
 </style>
 {% endblock meta %}
 
@@ -18,6 +27,45 @@
     </div>
     <div class="container">
         <div id="grid" class="row mb-3 mt-3">
+            <form method="POST" action = "">
+                {% csrf_token %}
+        <section class="vh-100 gradient-custom">
+            <div class="container py-5 h-h-99">
+                <div class="row d-flex justify-content-center align-items-center h-100">
+                    <div class="col-12 col-md-8 col-lg-6 col-xl-5">
+                        <div class="card bg-dark text-white" style="border-radius: 1rem;">
+                        <div class="card-body p-5 text-center">
+                            <div class="mb-md-5 mt-md-4 pb-5">
+                                <h2 class="fw-bold mb-2">LOGIN</h2>
+                                <p class="text-white-50 mb-5">Please enter your login and password!</p>
+                                <div class="form-outline form-white mb-4">
+                                    <input type="text" name="username" placeholder="Username" class="form-control-lg">
+                                </div>
+                                <div class="form-outline form-white mb-4">
+                                    <input type="password" name="password" placeholder="Password" class="form-control-lg">
+                                </div>
+                                <button class="btn btn-outline-light btn-lg px-5" type="submit" name="Login">Login</button>
+                                </div>
+                                <div>
+                                    <p class="mb-0">Don't have an account? <a href="{% url 'homepage:register' %}" class="text-white-50 fw-bold">Register</a>
+                                    </p><br>
+                                    {% if messages %}
+                                
+                                    {% for message in messages %}
+                                        <b>{{ message }}</b>
+                                    {% endfor %}
+                                
+                                    {% endif %}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    </div>
+                </div>
+                </section>
+            </form>
+                </div>
+            </div>
         </div>
-    </div>
-</div>
+
+{% endblock content %}

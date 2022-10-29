@@ -5,6 +5,15 @@
     table, tr, th, td {
         border-collapse:collapse;
     }
+    .login_reg_bg {
+        height: 25vh; 
+        width: 100vw; 
+        background-image: url('/static/img/log_reg.png'); 
+        background-repeat: no-repeat; 
+        background-size: cover; 
+        background-position: center; 
+        padding: 20;
+    }
 </style>
 {% endblock meta %}
 
@@ -12,8 +21,8 @@
 <div style="min-height:80vh">
     <div class="login_reg_bg p-5 text-center bg-light">
         <span style="color:white">
-            <h1 class="mb-3">Login</h1>
-            <h4 class="mb-3">Login as an admin!</h4>
+            <h1 class="mb-3">Sign Up</h1>
+            <h4 class="mb-3">Sign up as an Admin!</h4>
         </span>
     </div>
     <div class="container">
@@ -58,3 +67,4 @@
         </div>
     </div>
 </div>
+{% endblock content %}

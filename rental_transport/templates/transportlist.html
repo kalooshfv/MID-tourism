@@ -1,58 +1,100 @@
 {% extends 'base.html' %}
 {% block content %}
-<style>
-    table{
-        margin-left: auto;
-        margin-right: auto;
-        align-self: center;
-        align-items: center;
-        background-color: pink;
-        border-collapse: collapse;
-        border: 2px solid yellow;
-    }
-    h5, p {
-        text-align: center;
-    }
-    h1 {
-      color: aliceblue;
-    }
-</style>
-<body style="background-color: gray ;">
+<script>
+    $(document).ready(function() {
+        function card(transportss) {
+        return `
+        <div class="col">
+            <div class="card text-white bg-success mb-3" style="width: 18rem; border-radius: 10px;">
+                <div class="card-body">
+                    <h5 class="card-title">${transportss.fields.company_name}</h5>
+                    <p class="card-text">${transportss.fields.transport_name}</p>
+                    <p class="card-text">${transportss.fields.transport_price}</p>
+                    <p class="card-text">${transportss.fields.description}</p>
+                    <p class="card-text">${transportss.fields.availability}</p>
+                    <a href="delete_transport/${transport.pk}" class="btn btn-dark">Delete</a>         
+                </div>
+            </div>
+        </div>
+        `
+        };
+        function loop() {
+            $.get("{% url 'rental_transport:show_json' %}", function(data) {
+                $.each(data, function(i, value) {
+                    $("#container0").append(card(value));
+                });
+            });
+        };
+        $("#submitbutton").click(e => {
+        e.preventDefault();
+        const csrftoken = document.querySelector(
+            "[name=csrfmiddlewaretoken]"
+        ).value;
+        $.ajax({
+            type: "POST",
+            url: "{% url 'rental_transport:create_transport' %}",
+            headers: { "X-CSRFToken": csrftoken },
+            mode: "same-origin",
+            data: {
+                company_name: $("#companyname").val(),
+                transport_name: $("#transportname").val(),
+                transport_price: $('#transportprice').val(),
+                description: $('#descriptiontxt').val(),
+                availability: $("#availability").val(),
+            },
+            success: response => {
+                $("#newtransport").trigger("reset");
+                $("#emuotori").prepend(card(response));
+            },
+            error: error => {
+                console.log(error);
+            },
+            });
+        });
+        loop();
+    })
+</script>
 
-<nav class="navbar default navbar-expand-lg navbar navbar-dark bg-dark">
-    <div class="container-fluid">
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse" id="navbarSupportedContent">
-        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-          <li class="nav-item">
-            <h1>Username</h1>
-          </li>
-        </ul>
+<div class="newww">
+<div class="modal fade" id="modalinterior" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="exampleModalLabel">Add Rental Transportation</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <form method="post" id="newtransport">
+              {% csrf_token %}
+              <div class="col text-center">
+              <div class="form-floating mb-3 w-10">
+                  <div class="form-floating">
+                  <label for="floatingInput">Company Name</label>
+                  <input type="text" class="form-control" name="company" id="companyname">
+                  </div>
+                  <div class="form-floating">
+                  <label for="floatingInput">Vehicle type</label>
+                  <input  type="text" class="form-control" name="transporttype" id="transportname">
+                  </div>
+                  <div class="form-floating">
+                  <label for="floatingInput">Price</label>
+                  <input type="text" class="form-control" name="price" id="transportprice">
+                  </div>
+                  <div class="form-floating">
+                  <label for="floatingInput">Description</label>
+                  <input type="text" class="form-control" name="descrip" id="descriptiontxt">
+                  </div>
+                  <button class="btn btn-success my-3" type="submit" id="submitbutton" data-bs-dismiss="modal">Create Transportation</button>
+                  </div>
+              </div>
+              </div>
+          </form>
+        </div>
       </div>
     </div>
-  </nav>
-
-<h5>Transport</h5>
-<p></p>
-
-<table>
-    <tr>
-        <th>Transport Name</th>
-        <th>Transport Price</th>
-        <th>Description</th>
-    </tr>
-    {% comment %} Add the data below this line {% endcomment %}
-    {% for item in transport_item %}
-    <tr>
-        <th>{{item.transport_name}}</th>
-        <th>{{item.transport_price}}</th>
-        <th>{{item.description}}</th>
-    </tr>
-    {% endfor %}
-</table>
-<br>
-
-</body>
+  <button type="button" class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#modalinterior">
+    Add New Transport
+  </button>
+<div id="refer" class="row row-cols-1 row-cols-md-5 g-4"></div>
+</div>
 {% endblock content %}

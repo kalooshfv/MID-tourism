@@ -89,18 +89,18 @@
       background-color :rgb(20, 84, 116, 0.6) !important;
     }
 </style>
-<div style="min-height:10vh">
   <div class="tourguide_bg p-5 text-center bg-light">
       <span style="color:white">
-          <h1 class="mb-3">Tourguide</h1>
-          <h4 class="mb-3">Find the right tourguide for you!</h4>
+          <h1 class="mb-3">Find the right tourguide for you!</h1>
+          <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalinterior">
+            Add New Schedule
+          </button>
       </span>
   </div>
   <div class="container">
       <div id="grid" class="row mb-3 mt-3">
       </div>
   </div>
-</div>
 
 <div class="MakeMarginOmegalol">
   <div class="modal fade" id="modalinterior" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -136,9 +136,7 @@
     </div>
   </div>
 
-  <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalinterior">
-    Add New Schedule
-  </button>
+
 
 
 <div id="refer" class="row row-cols-1 row-cols-md-5 g-4"></div>

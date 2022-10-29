@@ -8,4 +8,4 @@ class TransportList(models.Model):
     transport_name = models.CharField(max_length=50)
     transport_price = models.TextField()
     description = models.TextField()
-    availability = models.BooleanField(default=True)
+    availability = models.CharField(max_length=10, default='Available')

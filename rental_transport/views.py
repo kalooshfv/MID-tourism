@@ -13,9 +13,11 @@ from django.http import HttpResponse, JsonResponse
 def show_transportlist(request):
     transport_item = TransportList.objects.all()
     context = {
+    'user': request.user,
     'list_item': transport_item 
     }
     return render(request, "transportlist.html", context)
+
 
 def create_transport(request):
     if request.method == "POST":
@@ -29,6 +31,8 @@ def create_transport(request):
             transport_price=transport_price,
             description=description,
         )
+        transportss.save()
+        print(transportss)
         return JsonResponse(
             {
                 "pk": transportss.id,
@@ -45,3 +49,8 @@ def create_transport(request):
 def show_json(request):
     data = TransportList.objects.all()
     return HttpResponse(serializers.serialize("json",data), content_type="application/json")
+
+def remove_transport(request, id):
+    itemtodelete = TransportList.objects.get(pk=id)
+    itemtodelete.delete()
+    return redirect('rental_transport:show_transportlist')

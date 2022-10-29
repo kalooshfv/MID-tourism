@@ -26,11 +26,11 @@
 <body style="overflow-x:hidden">
   
   <!-- Main navigation -->
-  <header>
+  <header style="height: 10vh">
     <!--Navbar-->
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark scrolling-navbar">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark scrolling-navbar" style="height: 10vh">
       <div class="container">
-        <a class="navbar-brand" href="#">
+        <a class="navbar-brand" href="/">
           <img src="/static/img/MID-logos_white.png" width=60 length=60><strong>MID</strong>
         </a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent-7" aria-controls="navbarSupportedContent-7" aria-expanded="false" aria-label="Toggle navigation">
@@ -60,10 +60,10 @@
         </div>
         <div class="d-flex align-items-center">
           <button type="button" class="btn btn-link px-3 me-2">
-            Login
+            Login as Admin
           </button>
           <button type="button" class="btn btn-primary me-3">
-            Sign up for free
+            Sign Up as Admin
           </button>
           <a
             class="btn btn-dark px-3"
@@ -79,9 +79,9 @@
 <!--Main Layout-->
   {% block content %}
   {% endblock content %}
-  <footer class="bg-light text-center text-lg-start mt-5">
+  <footer class="bg-light text-center text-lg-start mt-5" style="max-height: 10vh">
     <!-- Copyright -->
-    <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.2);">
+    <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.2);" style="max-height: 10vh">
       <i>© 2022 Copyright</i> <br>
       <b>PBD Group Assignment</b> <br>
       Dylan Pribadi ||

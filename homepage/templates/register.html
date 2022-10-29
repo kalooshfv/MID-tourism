@@ -1,0 +1,60 @@
+{% extends 'base.html' %}
+
+{% block meta %}
+<style>
+    table, tr, th, td {
+        border-collapse:collapse;
+    }
+</style>
+{% endblock meta %}
+
+{% block content %}
+<div style="min-height:80vh">
+    <div class="login_reg_bg p-5 text-center bg-light">
+        <span style="color:white">
+            <h1 class="mb-3">Login</h1>
+            <h4 class="mb-3">Login as an admin!</h4>
+        </span>
+    </div>
+    <div class="container">
+        <div id="grid" class="row mb-3 mt-3">
+            <form method="POST" action = "">
+                {% csrf_token %}
+            <section class="vh-100">
+                <div class="container py-5 h-h-100">
+                  <div class="row d-flex justify-content-center align-items-center h-100" style="padding-top:3%">
+                    <div class="col-12 col-md-8 col-lg-6 col-xl-5">
+                      <div class="card bg-dark text-white" style="border-radius: 1rem;">
+                        <div class="card-body p-5 text-center">
+              
+                          <h3 class="mb-3">REGISTER</h3>
+                          <p class="text-white-50 mb-2">Create new credentials for your account!</p>
+              
+                          <div class="form-outline mb-4">
+                            <input oninvalid="alert('Required. 150 characters or fewer. Letters, digits and @/./+/-/_ only.')" class="form-control form-control-lg" type="text" name="username" maxlength="150" autocapitalize="none" autocomplete="username" autofocus="" required="" id="id_username" placeholder="Username">
+                          </div>
+              
+                          <div class="form-outline mb-4">
+                            <input oninvalid="alert('Your password can’t be too similar to your other personal information, must contain at least 8 characters, can’t be a commonly used password, and can’t be entirely numeric.')"class = "form-control form-control-lg" type="password" name="password1" autocomplete="new-password" required="" id="id_password1" placeholder="Password">
+                          </div>
+            
+                          <p class="text-white-50 mb-2">Enter your password again to verify it!</p>
+            
+                          <div class="form-outline mb-4">
+                            <td style="text-align:center; padding: 14px"><input oninvalid="alert('Enter the same password as before, for verification.')" class="form-control form-control-lg" type="password" name="password2" autocomplete="new-password" required="" id="id_password2" placeholder="Password Verification">
+                          </div>
+              
+              
+                          <button class="btn btn-outline-light btn-lg px-5" type="submit" value="Register">Sign Up</button>
+              
+              
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </section>
+              </form>
+        </div>
+    </div>
+</div>

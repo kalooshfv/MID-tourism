@@ -5,4 +5,5 @@ app_name = 'homepage'
 
 urlpatterns = [
     path('', homepage, name='homepage'),
+    path('register/', register, name='register'),
 ]

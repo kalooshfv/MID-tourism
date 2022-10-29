@@ -7,6 +7,7 @@ from tourguide.views import login_user
 from tourguide.views import logout_user
 from tourguide.views import show_json
 from tourguide.views import add_schedule
+from tourguide.views import update_booked
 
 
 app_name = 'tourguide'
@@ -19,4 +20,5 @@ urlpatterns = [
     path('logout/', logout_user, name='logout'),
     path("json/", show_json, name="show_json"),
     path("add/", add_schedule, name="add_schedule"),
+    path("update-booked/<int:id>", update_booked, name="update_booked"),
 ]

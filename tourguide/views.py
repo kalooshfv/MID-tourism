@@ -15,16 +15,34 @@ from django.contrib.auth.decorators import login_required
 from django.http import JsonResponse
 
 
-@login_required(login_url="/tourguide/login/")
+
 def show_schedule(request):
     data_schedule_item = Task.objects.all()
-    current_user = request.user.username
+    current_user = request.user
     context = {
         'list_item': data_schedule_item,
         'user':current_user,
     }
     return render(request, "tourguide.html",context)
 
+def show_json(request):
+    task = Task.objects.all()
+    return HttpResponse(
+        serializers.serialize("json", task), content_type="application/json"
+    )
+
+def my_form(request):
+  form = TaskForms()
+  if request.method == "POST":
+    form = TaskForms(request.POST)
+    if form.is_valid():
+      last_user = form.save()
+      last_user.user = request.user
+      last_user.save()
+      return redirect('tourguide:show_schedule')
+  return render(request, 'cv-form.html', {'form': form})
+
+# @login_required(login_url="/tourguide/login/")
 def register(request):
     form = UserCreationForm()
 
@@ -53,17 +71,6 @@ def login_user(request):
     context = {}
     return render(request, 'login.html', context)
 
-def my_form(request):
-  form = TaskForms()
-  if request.method == "POST":
-    form = TaskForms(request.POST)
-    if form.is_valid():
-      last_user = form.save()
-      last_user.user = request.user
-      last_user.save()
-      return redirect('tourguide:show_schedule')
-  return render(request, 'cv-form.html', {'form': form})
-
 
 def logout_user(request):
     logout(request)
@@ -71,17 +78,18 @@ def logout_user(request):
     response.delete_cookie('last_login')
     return redirect('tourguide:login')
 
-def show_json(request):
-    task = Task.objects.all()
-    return HttpResponse(
-        serializers.serialize("json", task), content_type="application/json"
-    )
+# @login_required(login_url="/tourguide/login/")
+def update_booked(request, id):
+    task = Task.objects.get(user=request.user, id=id)
+    task.is_booked = not task.is_booked
+    task.save(update_fields=["is_booked"])
+    return HttpResponseRedirect(reverse("tourguide:show_schedule"))
 
 def add_schedule(request):
     if request.method == "POST":
         date = request.POST.get("date")
-        day = date[0:2]
-        month = date[3:5]
+        month = date[0:2]
+        day = date[3:5]
         year = date[6:]
         destination = request.POST.get("destination")
         company = request.POST.get("company")

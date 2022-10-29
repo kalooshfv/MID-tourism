@@ -26,7 +26,7 @@
           <input type="password" class="form-control" name="password" id="floatingPassword" placeholder="password" required>
           <label for="floatingPassword">Password</label>
         </div>
-      <input style="margin-top:5px" class="btn btn-secondary" type="submit" value="Login">
+      <input style="margin-top:5px" class="btn btn-outline-dark" type="submit" value="Login">
     </form>
 
     {% if messages %}
@@ -38,6 +38,8 @@
     {% endif %}     
         
     Don't have an account? <a href="{% url 'tourguide:register' %}">Create Account</a>
+    <br>
+    <button style="margin-top:5px" class="btn btn-outline-warning" role="button"><a href="{% url 'tourguide:show_schedule' %}">Skip Login</a></button>
 
 </div>
 

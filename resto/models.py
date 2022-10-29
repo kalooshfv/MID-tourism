@@ -29,7 +29,6 @@ weekday_dict = {
 
 
 class Restaurant(models.Model):
-    resto_id = models.UUIDField(max_length = 64, unique = True, default=uuid.uuid4, editable=False)
     resto_name = models.CharField(max_length = 64)
     resto_address = models.CharField(max_length = 128)
     resto_email = models.EmailField()

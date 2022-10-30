@@ -60,7 +60,7 @@
 <body style="overflow-x:hidden">
   
   <!-- Main navigation -->
-  <header style="height: 10vh">
+  <header style="height: 10vh; z-index: 100">
     <!--Navbar-->
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark scrolling-navbar" style="height: 10vh">
       <div class="container">
@@ -79,10 +79,10 @@
               <a class="nav-link" href="{% url 'rental_transport:show_transportlist' %}">Transporations</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="#">Restaurants</a>
+              <a class="nav-link" href="{% url 'resto:show_restaurant' %}">Restaurants</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="#">Landmarks</a>
+              <a class="nav-link" href="{% url 'landmarks:show_landmarks' %}">Landmarks</a>
             </li>
             <li class="nav-item">
               <a class="nav-link" href="#">Hotel</a>
@@ -93,13 +93,14 @@
           </ul>
         </div>
         <div class="d-flex align-items-center">
+          {% block navbar %}
           {% if user.is_authenticated %}
           <button type="button" class="btn btn-link px-3 me-2">
             <a href="{% url 'homepage:logout' %}" style="text-decoration:none;">Logout</a>
           </button>
           {% else %}
           <button type="button" class="btn btn-link px-3 me-2">
-            <a href="{% url 'homepage:login' %}" style="text-decoration:none;">Login as Admin</a>
+            <a href="{% url 'homepage:login' %}" style="text-decoration:none;">Login</a>
           </button>
           {% endif %}
           {% if not user.is_authenticated %}
@@ -121,6 +122,20 @@
 <!--Main Layout-->
   {% block content %}
   {% endblock content %}
+  <footer class="bg-light text-center text-lg-start mt-5" style="max-height: 10vh">
+    <!-- Copyright -->
+    <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.2);" style="max-height: 10vh">
+      <i>© 2022 Copyright</i> <br>
+      <b>PBD Group Assignment</b> <i class="fab fa-github"> <br>
+      Dylan Pribadi ||
+      Halomoan Geraldo ||
+      Kaloosh Falito Verrell ||
+      Mohammad Attar ||
+      Nicholas Lexi ||
+      Raphael Fide Christiano
+    </div>
+    <!-- Copyright -->
+  </footer>
   <footer class="bg-light text-center text-lg-start mt-5" style="max-height: 10vh">
     <!-- Copyright -->
     <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.2);" style="max-height: 10vh">

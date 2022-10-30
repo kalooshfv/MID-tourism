@@ -29,12 +29,10 @@ def login_user(request):
         user = authenticate(request, username=username, password=password)
         if user is not None:
             login(request, user) # login first
-            response = HttpResponseRedirect(reverse("homepage:homepage")) # create response
-            return response
+            return HttpResponseRedirect(reverse("homepage:homepage")) # create response
         else:
             messages.info(request, 'Wrong Username or Password!')
-    context = {}
-    return render(request, 'login.html', context)
+    return render(request, 'login.html')
 
 def logout_user(request):
     logout(request)

@@ -31,54 +31,54 @@ def show_json(request):
         serializers.serialize("json", task), content_type="application/json"
     )
 
-def my_form(request):
-  form = TaskForms()
-  if request.method == "POST":
-    form = TaskForms(request.POST)
-    if form.is_valid():
-      last_user = form.save()
-      last_user.user = request.user
-      last_user.save()
-      return redirect('tourguide:show_schedule')
-  return render(request, 'cv-form.html', {'form': form})
+# def my_form(request):
+#   form = TaskForms()
+#   if request.method == "POST":
+#     form = TaskForms(request.POST)
+#     if form.is_valid():
+#       last_user = form.save()
+#       last_user.user = request.user
+#       last_user.save()
+#       return redirect('tourguide:show_schedule')
+#   return render(request, 'cv-form.html', {'form': form})
 
-# @login_required(login_url="/tourguide/login/")
-def register(request):
-    form = UserCreationForm()
+# # @login_required(login_url="/tourguide/login/")
+# def register(request):
+#     form = UserCreationForm()
 
-    if request.method == "POST":
-        form = UserCreationForm(request.POST)
-        if form.is_valid():
-            form.save()
-            messages.success(request, 'Account successfully created!')
-            return redirect('tourguide:login')
+#     if request.method == "POST":
+#         form = UserCreationForm(request.POST)
+#         if form.is_valid():
+#             form.save()
+#             messages.success(request, 'Account successfully created!')
+#             return redirect('tourguide:login')
 
-    context = {'form':form}
-    return render(request, 'register.html', context)
+#     context = {'form':form}
+#     return render(request, 'register.html', context)
 
-def login_user(request):
-    if request.method == 'POST':
-        username = request.POST.get('username')
-        password = request.POST.get('password')
-        user = authenticate(request, username=username, password=password)
-        if user is not None:
-            login(request, user) # login first
-            response = HttpResponseRedirect(reverse("tourguide:show_schedule")) # create response
-            response.set_cookie('last_login', str(datetime.datetime.now())) # create last_login cookie and add it to response
-            return response
-        else:
-            messages.info(request, 'Wrong Username or Password!')
-    context = {}
-    return render(request, 'login.html', context)
+# def login_user(request):
+#     if request.method == 'POST':
+#         username = request.POST.get('username')
+#         password = request.POST.get('password')
+#         user = authenticate(request, username=username, password=password)
+#         if user is not None:
+#             login(request, user) # login first
+#             response = HttpResponseRedirect(reverse("tourguide:show_schedule")) # create response
+#             response.set_cookie('last_login', str(datetime.datetime.now())) # create last_login cookie and add it to response
+#             return response
+#         else:
+#             messages.info(request, 'Wrong Username or Password!')
+#     context = {}
+#     return render(request, 'login.html', context)
 
 
-def logout_user(request):
-    logout(request)
-    response = HttpResponseRedirect(reverse('tourguide:login'))
-    response.delete_cookie('last_login')
-    return redirect('tourguide:login')
+# def logout_user(request):
+#     logout(request)
+#     response = HttpResponseRedirect(reverse('tourguide:login'))
+#     response.delete_cookie('last_login')
+#     return redirect('tourguide:login')
 
-# @login_required(login_url="/tourguide/login/")
+@login_required(login_url="/login/")
 def update_booked(request, id):
     task = Task.objects.get(user=request.user, id=id)
     task.is_booked = not task.is_booked

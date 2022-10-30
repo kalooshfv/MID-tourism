@@ -92,9 +92,11 @@
   <div class="tourguide_bg p-5 text-center bg-light">
       <span style="color:white">
           <h1 class="mb-3">Find the right tourguide for you!</h1>
+          {% if user.is_authenticated %}
           <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalinterior">
             Add New Schedule
           </button>
+          {% endif %}
       </span>
   </div>
   <div class="container">
@@ -140,12 +142,6 @@
 
 
 <div id="refer" class="row row-cols-1 row-cols-md-5 g-4"></div>
-<!-- {% if not user.is_authenticated %}
-<button style="margin-top:1vw" class="btn btn-outline-success" role="button"><a href="{% url 'tourguide:login' %}">Admin Login</a></button>
-{% endif %}
-{% if user.is_authenticated %}
-<button style="margin-top:1vw" class="btn btn-outline-secondary" role="button"><a href="{% url 'tourguide:logout' %}">Logout</a></button>
-{% endif %}  -->
 </div>
 </div>
 {% endblock content %}

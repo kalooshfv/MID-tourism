@@ -4,6 +4,7 @@ from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
 from django.http import HttpResponseRedirect
 from django.urls import reverse
+from homepage.models import Player
 
 # Create your views here.
 def homepage(request):
@@ -16,7 +17,7 @@ def register(request):
         if form.is_valid():
             form.save()
             messages.success(request, 'Account successfully created!')
-            return redirect("{% url 'homepage:homepage' %}")
+            return redirect('homepage:login')
     context = {'form':form}
     return render(request, 'register.html', context)
 
@@ -36,5 +37,5 @@ def login_user(request):
 
 def logout_user(request):
     logout(request)
-    response = HttpResponseRedirect(reverse('homepage:login'))
+    response = HttpResponseRedirect(reverse('homepage:homepage'))
     return response

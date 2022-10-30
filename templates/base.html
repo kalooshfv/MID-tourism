@@ -82,9 +82,11 @@
             <a href="{% url 'homepage:login' %}" style="text-decoration:none;">Login as Admin</a>
           </button>
           {% endif %}
+          {% if not user.is_authenticated %}
           <button type="button" class="btn btn-light me-3">
             <a href="{% url 'homepage:register' %}" style="text-decoration:none;">Sign Up as Admin</a>
           </button>
+          {% endif %}
           <a
             class="btn btn-dark px-3"
             href="https://github.com/diablofied/MID-tourism"

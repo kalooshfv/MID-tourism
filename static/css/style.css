@@ -41,3 +41,13 @@ main {
     background-position: center; 
     padding: 20;
 }
+
+.hotel_bg {
+    height: 25vh; 
+    width: 100vw; 
+    background-image: url('/static/img/hotel.png'); 
+    background-repeat: no-repeat; 
+    background-size: cover; 
+    background-position: center; 
+    padding: 20
+}

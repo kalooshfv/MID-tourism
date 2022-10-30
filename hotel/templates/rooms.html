@@ -1,0 +1,152 @@
+{% extends 'base.html' %}
+
+{% block meta %}
+<title>room</title>
+{% endblock meta %}
+
+{% block content %}
+<script>
+    $(document).ready(function() {
+        function card(room) {
+        return `
+        <div class="col">
+            <div class="card text-dark bg-light mb-3 flex-row" style="min-width: 25vw; border-radius: 10px;" id='card'>
+                <img class="card-img-left example-card-img-responsive" src="/${room.fields.room_photo}" alt="No image" style='width:40%; padding: 1vh 0 1vh 1vw;'>
+                <div class="card-body" style='margin-left:1vw'>
+                    <h4 class="card-title">${room.fields.room_type}</h4>
+                    <h6 class="card-text">price : Rp ${room.fields.room_price},00</h6>
+                    <p class="card-subtitle" style='margin-bottom: 2vh'>${room.fields.room_description}</p>
+                    ${room.fields.is_booked===false ? 
+                        `<a href="is_booked/${room.pk}" class="btn btn-primary">Book</a>` : 
+                        `<a href="is_booked/${room.pk}" class="btn btn-warning disabled">Booked</a>`
+                    }
+                    ${'#auth'===true ? 
+                        `<a href="delete_room/${room.pk}/${room.fields.room_hotel}" class="btn btn-danger" style="margin-left:0.5rem;">Delete</a>` : 
+                        ``
+                    }
+                </div>
+            </div>
+        </div>
+        `
+        };
+        // datepicker
+        $('input[name="dates"]').daterangepicker();
+        // loop to display card
+        function loop() {
+            let inp = document.getElementById("hotelid").value;
+            $.get("{% url 'hotel:show_json_room' %}", function(data) {
+                $.each(data, function(i, value) {
+                    if(value.fields.room_hotel === parseInt(inp)) {
+                        $("#container0").append(card(value));
+                    }
+                });
+            });
+        };
+        // submitform
+        $("#submitbutton").click(e => {
+        e.preventDefault();
+        const csrftoken = document.querySelector(
+            "[name=csrfmiddlewaretoken]"
+        ).value;
+        $.ajax({
+            type: "POST",
+            url: "{% url 'hotel:add_room' %}",
+            headers: { "X-CSRFToken": csrftoken },
+            mode: "same-origin",
+            data: {
+                room_hotel: $('#hotelid').val(),
+                room_type: $("#typetext").val(),
+                room_description: $("#descriptiontext").val(),
+                room_photo: $('#roomphoto').val(),
+                room_price: $('#roomprice').val(),
+            },
+            success: response => {
+                $("#modalform").trigger("reset");
+                $("#container0").prepend(card(response));
+            },
+            error: error => {
+                console.log(error);
+            },
+            });
+        });
+        loop();
+    })
+</script>
+
+<style>
+    .hotel_bg {
+    height: 15vh; 
+    width: 100vw; 
+    background-image: url('/static/img/hotel.png'); 
+    background-repeat: no-repeat; 
+    background-size: cover; 
+    background-position: center; 
+    padding: 20
+}
+#card:hover{
+    transform: scale(1.05);
+    box-shadow: 0 10px 20px rgba(0,0,0,.12), 0 4px 8px rgba(0,0,0,.06);
+}
+</style>
+
+<body>
+    <!-- modal -->
+    <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h1 class="modal-title fs-5" id="staticBackdropLabel">Add Room</h1>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form method="POST" action="" id="modalform" class="needs-validation">
+                    {% csrf_token %} 
+                    <div class="mb-3">
+                      <label for="typetext" class="form-label">Room Type</label>
+                      <input type="text" class="form-control" id="typetext" aria-describedby="emailHelp" name="typetext" required>
+                    </div>
+                    <div class="mb-3">
+                      <label for="descriptiontext" class="form-label">Description</label>
+                      <input type="text" class="form-control" id="descriptiontext" name="descriptiontext" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="roomprice" class="form-label">Room Price</label>
+                        <input type="text" class="form-control" id="roomprice" name="roomprice" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="roomphoto" class="form-label">Room Photo</label>
+                        <input type="file" class="form-control" id="roomphoto" name="roomphoto">
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+              <button type="submit" class="btn btn-secondary" data-bs-dismiss="modal" id="submitbutton">Submit</button>
+            </div>
+          </div>
+        </div>
+    </div>
+
+    <!-- container -->
+    <div style="min-height:80vh">
+        <div class="hotel_bg p-5 text-center bg-light">
+            {% if user.is_authenticated %}
+            <button type="button" class="btn btn-light" data-bs-toggle="modal" data-bs-target="#staticBackdrop">Add Room</button>
+            {% endif %}
+        </div>
+        <div style="margin: 1vh 0 0 1.5vw">
+            <a href="/hotel/" class="btn btn-outline-primary" role="button" id="back" style="margin-bottom: 1vh;">Check Other Hotels</a><br>
+            {% if not user.is_authenticated %}
+            <input class=""type="text" name="dates">
+            {% endif %}
+        </div>
+        <div style="padding-left: 10px; padding-right: 15px; margin: 5vh 0 0 1vw;">
+            <div class="row row-cols-1 row-cols-md-2 g-4" id="container0">
+            </div>
+        </div>
+    </div>
+
+    <!-- hidden -->
+    <input id="hotelid" value={{id}} hidden>
+    <p id='auth' hidden>{{user.is_authenticated}}</p>
+</body>
+{% endblock content %}

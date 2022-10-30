@@ -1,0 +1,177 @@
+{% extends 'base.html' %}
+
+{% block meta %}
+<title>Hotel</title>
+{% endblock meta %}
+
+{% block content %}
+<script>
+    $(document).ready(function() {
+        function card(hotel) {
+        return `
+        <div class="col">
+            <div class="card text-dark bg-light mb-3 flex-row" style="min-width: 20vw; border-radius: 10px;" id='card'>
+                ${hotel.fields.hotel_photo ? 
+                    `<img class="card-img-left" src="/static/img/placeholder.jpg" alt="" style='width:40%; padding: 1vh 0 1vh 1vw;'>` : 
+                    `<img class="card-img-left" src="/${hotel.fields.hotel_photo}" alt="" style='width:40%; padding: 1vh 0 1vh 1vw;'>`
+                }
+                <div class="card-body" style='padding-left:1vw'>
+                    <h4 class="card-title">${hotel.fields.hotel_name}</h4>
+                    <h6 class="card-subtitle">address : ${hotel.fields.hotel_address}</h6>
+                    <p class="card-subtitle">email : ${hotel.fields.email}</p>
+                    <p class="card-text">${hotel.fields.star}-star</p>
+                    <p class="card-text">${hotel.fields.description}</p>
+                    <a href="room/${hotel.pk}" class="btn btn-outline-primary">Check Availability</a>
+                    ${'#auth'===true ?
+                    `<a href="delete_hotel/${hotel.pk}" class="btn btn-danger" style="margin-left:0.5rem;">Delete Hotel</a>`:
+                    ``
+                    }
+                </div>
+            </div>
+        </div>
+        `
+        };
+        function loop() {
+            $.get("{% url 'hotel:show_json' %}", function(data) {
+                $.each(data, function(i, value) {
+                    $("#container0").append(card(value));
+                });
+            });
+        };
+        $("#submitbutton").click(e => {
+        e.preventDefault();
+        const csrftoken = document.querySelector(
+            "[name=csrfmiddlewaretoken]"
+        ).value;
+        var radios = $("[name=inlineRadioOptions]");
+        for (var i = 0, length = radios.length; i < length; i++) {
+            if (radios[i].checked) {
+                radiovalue = radios[i].value;
+                break;
+            }
+        }
+        $.ajax({
+            type: "POST",
+            url: "{% url 'hotel:add_hotel' %}",
+            headers: { "X-CSRFToken": csrftoken },
+            mode: "same-origin",
+            data: {
+                hotel_name: $("#nametext").val(),
+                hotel_address: $("#addresstext").val(),
+                hotel_photo: $('#hotel_photo').val(),
+                email: $('#emailinput').val(),
+                star: radiovalue,
+                description: $("#descriptiontext").val(),
+
+            },
+            success: response => {
+                $("#modalform").trigger("reset");
+                $("#container0").prepend(card(response));
+                console.log(data);
+            },
+            error: error => {
+                console.log(error);
+            },
+            });
+        });
+        loop();
+    })
+</script>
+
+<style>
+    .hotel_bg {
+    height: 15vh; 
+    width: 100vw; 
+    background-image: url('/static/img/hotel.png'); 
+    background-repeat: no-repeat; 
+    background-size: cover; 
+    background-position: center; 
+    padding: 20
+    }
+    #card:hover{
+    transform: scale(1.05);
+    box-shadow: 0 10px 20px rgba(0,0,0,.12), 0 4px 8px rgba(0,0,0,.06);
+    }
+</style>
+
+<body>
+    <!-- modal -->
+    <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+            <h1 class="modal-title fs-5" id="staticBackdropLabel">Add Hotel</h1>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form method="POST" action="" id="modalform">
+                    {% csrf_token %} 
+                    <div class="mb-3">
+                    <label for="nametext" class="form-label">Name</label>
+                    <input type="text" class="form-control required" id="nametext" aria-describedby="emailHelp" name="titletext">
+                    </div>
+                    <div class="mb-3">
+                    <label for="addresstext" class="form-label">Address</label>
+                    <input type="text" class="form-control" id="addresstext" name="addresstext" required="">
+                    </div>
+                    <div class="mb-3">
+                        <label for="emailinput" class="form-label">Email</label>
+                        <input type="email" class="form-control" id="emailinput" name="emailinput" required="">
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Star</label><br>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value=1>
+                            <label class="form-check-label" for="inlineRadio1">1</label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value=2>
+                            <label class="form-check-label" for="inlineRadio2">2</label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio3" value=3>
+                            <label class="form-check-label" for="inlineRadio3">3</label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio4" value=4>
+                            <label class="form-check-label" for="inlineRadio4">4</label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio5" value=5>
+                            <label class="form-check-label" for="inlineRadio5">5</label>
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <label for="descriptiontext" class="form-label">Description</label>
+                        <input type="text" class="form-control" id="descriptiontext" name="descriptiontext" required="">
+                    </div>
+                    <div class="mb-3">
+                        <label for="photoinput" class="form-label">Hotel Photo</label>
+                        <input type="file" class="form-control" id="hotel_photo" name="hotel_photo">
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+            <button type="submit" class="btn btn-primary" data-bs-dismiss="modal" id="submitbutton">Submit</button>
+            </div>
+        </div>
+        </div>
+    </div>
+    
+    <!-- container -->
+    <div style="min-height:80vh;">
+        <div class="hotel_bg p-5 text-center bg-light">
+            {% if user.is_authenticated %}
+            <button type="button" class="btn btn-light" data-bs-toggle="modal" data-bs-target="#staticBackdrop">Add Hotel</button>
+            {% endif %}
+        </div>
+        <div style="padding-left: 2.5vw; padding-right: 2vw; margin-top: 5vh;">
+            <div class="row row-cols-1 row-cols-md-2 g-4" id="container0">
+            </div>
+        </div>
+    </div>
+
+    <!-- hidden -->
+    <p id='auth' hidden>{{user.is_authenticated}}</p>
+</body>
+{% endblock content %}

@@ -1,5 +1,5 @@
-from django.shortcuts import render
-from django.http import HttpResponse, HttpResponseForbidden
+from django.shortcuts import render, get_object_or_404
+from django.http import HttpResponse
 from django.core import serializers
 
 from landmarks.models import Landmark
@@ -12,7 +12,7 @@ def show_landmarks(request):
     landmarks = Landmark.objects.all()
     context = {
         'landmarks': landmarks,
-        'authentication': request.user.is_authenticated,
+        'user': request.user,
     }
     return render(request, "landmarks.html", context)
 
@@ -26,5 +26,9 @@ def add_landmark(request):
         new = Landmark(name=name, location=location, description=description, image=image)
         new.save()
 
-        return HttpResponse()
-    return HttpResponseForbidden()    
+        return HttpResponse(b"CREATED", status=201)
+
+def delete_landmark(request, id):
+    item = get_object_or_404(Landmark, pk = id)
+    item.delete()
+    return HttpResponse()

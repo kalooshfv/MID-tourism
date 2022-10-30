@@ -16,7 +16,7 @@ def register(request):
         if form.is_valid():
             form.save()
             messages.success(request, 'Account successfully created!')
-            return redirect("{% url 'homepage:homepage' %}")
+            return redirect("homepage:homepage")
     context = {'form':form}
     return render(request, 'register.html', context)
 
@@ -27,8 +27,7 @@ def login_user(request):
         user = authenticate(request, username=username, password=password)
         if user is not None:
             login(request, user) # login first
-            response = HttpResponseRedirect(reverse("homepage:homepage")) # create response
-            return response
+            return HttpResponseRedirect(reverse("homepage:homepage")) # create response
         else:
             messages.info(request, 'Wrong Username or Password!')
     context = {}
@@ -36,6 +35,5 @@ def login_user(request):
 
 def logout_user(request):
     logout(request)
-    response = HttpResponseRedirect(reverse('todolist:login'))
-    response.delete_cookie('last_login')
+    response = HttpResponseRedirect(reverse('homepage:login'))
     return response

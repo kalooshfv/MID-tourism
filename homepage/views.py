@@ -30,8 +30,7 @@ def login_user(request):
             return HttpResponseRedirect(reverse("homepage:homepage")) # create response
         else:
             messages.info(request, 'Wrong Username or Password!')
-    context = {}
-    return render(request, 'login.html', context)
+    return render(request, 'login.html')
 
 def logout_user(request):
     logout(request)

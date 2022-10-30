@@ -1,0 +1,134 @@
+{% extends 'base.html' %}
+
+{% block meta %}
+<style>
+    table, tr, th, td {
+        border-collapse:collapse;
+    }
+</style>
+<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+{% endblock meta %}
+
+{% block content %}
+<div style="min-height:80vh">
+    <div class="resto_bg p-5 text-center bg-light">
+        <span style="color:white">
+            <h1 class="mb-3">Restaurants</h1>
+            <h4 class="mb-3">Find the best cuisine in your location of choice!</h4>
+        </span>
+    </div>
+    <div class="container">
+        <div id="grid" class="row mb-3 mt-3">
+        </div>
+    </div>
+</div>
+
+<script>
+  async function get_resto() {
+      return fetch("{% url 'resto:show_restaurant_json' %}").then((res) => res.json())
+  }
+  async function refresh() {
+      document.getElementById("grid").innerHTML = "";
+      const restaurant = await get_resto();
+      let html_string = '';
+      
+      restaurant.forEach((resto) => {
+        console.log(resto.fields.resto_photo)
+          html_string += 
+          `
+          <div class="col-lg-4 mb-4">
+              <div class="card mb-3 mt-3 pl-3 pr-3">
+                  <img class="card-img-top" src="/${resto.fields.resto_photo}" alt ="No image">
+                  <div class="card-body">
+                      <h5 class="card-title">${ resto.fields.resto_name }</h5>
+                      <h6 class="card-subtitle mb-2 text-muted">${resto.fields.resto_address}</h6>
+                      <p class="card-text"> 
+                          ${resto.fields.resto_description}
+                      </p>
+                  </div>
+                  <ul class="list-group list-group-flush">
+                      <li class="list-group-item"><b>Email:</b> ${resto.fields.resto_email}</li>
+                      <li class="list-group-item"><b>Phone Number:</b> ${resto.fields.resto_phone}</li>
+                      <li class="list-group-item"><b>Website:</b> ${resto.fields.resto_delivery}</li>
+                  </ul>
+                  {% if user.is_authenticated %}
+                  <div class="card-footer">
+                      <td><button class="btn btn-outline-secondary"><a href="delete_restaurant/${resto.pk}">Delete Restaurant</a></button></td>
+                  </div> 
+                  {% endif %}
+              </div>
+          </div>
+          `
+      });
+      document.getElementById("grid").innerHTML = html_string;
+    };
+  function create_resto() {
+    console.log(new FormData(document.querySelector('#form')))
+    fetch("{% url 'resto:create_resto' %}", {
+      method: "POST",
+      body: new FormData(document.querySelector('#form'))
+    }).then(refresh);
+    return false
+  }
+  refresh();
+</script>
+
+{% if user.is_authenticated %}
+<button data-bs-toggle="modal" data-bs-target="#modal" class="container rounded-5 border border-5  my-5 bg-dark d-flex justify-content-center" style="width:25%; padding:1.5%;" >
+  <h5 class="h5" style="color: white; text-align: center;">CREATE A NEW RESTAURANT!</h5></button>
+{% endif %}
+
+<div class="modal fade" id="modal" tabindex="-1" aria-labelledby="modalLabel" aria-hidden="true">
+    <div class="modal-dialog rounded-10">
+      <div class="modal-content bg-dark">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" style="color: white;">Create a New Restaurant</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <form id="form" method="POST" action="">
+            {% csrf_token %}
+          <table><tr><td>
+            <div class="form-outline form-white mb-4">
+              <input name = "resto_name" class="form-control" type="text" maxlength="64" required="" id="id_resto_name" placeholder="Enter your resto's name!">
+            </div></td></tr>
+            <tr><td><div class="form-outline form-white mb-4">
+                <input name = "resto_address" class="form-control" type="text" maxlength="64" required="" id="id_resto_address" placeholder="Enter your resto's address!">
+              </div></td></tr>
+              <tr><td><div class="form-outline form-white mb-4">
+                <input  name = "resto_email" class="form-control" type="text" maxlength="64" required="" id="id_resto_email" 
+                  placeholder="Enter your resto's email address!">
+              <tr><td></div></td></tr>
+              <tr><td><div class="form-outline form-white mb-4">
+                <input name = "resto_phone" class="form-control" type="text" maxlength="64" required="" id="id_resto_phone" 
+                  placeholder="Enter your resto's phone number!">
+              </div></td></tr>
+              <tr><td><div class="form-outline form-white mb-4">
+              <textarea name = "resto_description" placeholder="Describe your restaurant and what it provides!" 
+                name="task_description" cols="50" rows="5" required="" id="id_task_description" 
+                  spellcheck="false" class="form-control form-control-lg"></textarea>
+              </div></td></tr>
+              <tr><td><h5 class="h5" style="color: white;">Please submit a photo of your restaurant!</h1></td></tr>
+              <tr><td><div class="form-outline form-white mb-4">
+                <input name = "resto_photo" class="form-control" type="file" required="" id="id_resto_photo">
+              </div></td></tr>
+              <tr><td><div class="form-outline form-white mb-4">
+                <input name = "resto_delivery" class="form-control" type="text" maxlength="64" required="" id="id_resto_delivery" 
+                  placeholder="Enter your resto's website address!">
+              </div></td></tr>
+          </table>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          <button data-bs-dismiss="modal" 
+          type="button" class="btn btn-outline-light btn-lg px-5" 
+          type="submit" value="Create!" id="create" 
+          onclick=create_resto()>Create!</button>
+        </form>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock content %}

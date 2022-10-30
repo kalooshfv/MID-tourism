@@ -1,0 +1,83 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block meta %}
+<title>Homepage</title>
+{% endblock meta %}
+
+{% block content %}
+<!-- Full Page Intro -->
+<div class="d-flex justify-content-center"style="height: 95vh; width: 100vw; background-image: url('/static/img/city.png'); background-repeat: no-repeat; background-size: cover; background-position: center; padding: 20">
+  <!-- Mask & flexbox options-->
+  <div class="mask rgba-gradient d-flex align-items-center">
+    <!-- Content -->
+    <div class="container-flex justify-content-center" style="margin-bottom: 7vh;">
+      <!--Grid row-->
+      <div class="row justify-content-center">
+        <!--Grid column-->
+        <div class="col-md-6 white-text text-center text-md-left mt-xl-5 mb-5">
+          <h1 class="h1-responsive font-weight-bold mt-sm-5" style="color:white">Strike the balance between adventure and comfort.</h1>
+          <hr class="hr-light">
+          <h6 class="mb-4" style="color:white">Experience authenticity and accomodation with MID, your one-stop shop for all things travelling. The wilderness awaits!</h6>
+        </div>
+        <!--Grid column-->
+        <!--Grid column-->
+        <div class="col-md-6 col-xl-5 mt-xl-5">
+          <img src="" alt="" class="img-fluid">
+        </div>
+        <!--Grid column-->
+      </div>
+      <!--Grid row-->
+    </div>
+    <!-- Content -->
+  </div>
+  <!-- Mask & flexbox options-->
+</div>
+<!-- Full Page Intro -->
+<main>
+  <div class="container" style="margin-bottom: 12vh;">
+    <!--Grid row-->
+    <div class="row">
+      <div class="col-md-5 white-text text-center text-md-left mt-xl-5 mb-5">
+        <img src="/static/img/MID-logos_black.png" alt="" class="img-fluid" width=300 height=300>
+      </div>
+      <!--Grid column-->
+      <div class="col-md-7 white-text text-center text-md-left mt-xl-5 mb-5">
+        <h1 class="display-3 font-weight-bold">About Us</h1>
+        <br>
+        <p>MID Tourism is a one stop web app for those who want to take a break and enjoy travelling, yet struggle with the technicalities of obtaining your daily needs when arriving at your location of leisure. We aim to make your trip the easiest it has ever been, while still maintaining the authenticity of the experience you are seeking.
+          </p>
+        <button style="margin: 1vw" type="button" class="btn btn-outline-secondary"><a class="btn btn-white" style="color:black" href="about/">Learn more</a></button>
+      </div>
+      <!--Grid column-->
+    </div>
+    <!--Grid row-->
+    <div class="row">
+      <!--Grid column-->
+      <div class="col white-text text-center text-md-left mt-xl-5 mb-5">
+        <h1 class="h1-responsive font-weight-bold">What do we offer?</h1>
+      </div>
+      <!--Grid column-->
+    </div>
+    <div class="row" style="margin-left:5vw; margin-right:5vw">
+      <div class="col text-center">
+        <img src="/static/img/essential.png" height=100 width=100>
+        <p class="h5">The Essentials</p>
+        <p><small>We'll find you a place to crash and and a way to get there!</small></p>
+      </div>
+      <div class="col text-center">
+        <img src="/static/img/experience.png" height=100 width=100>
+        <p class="h5">The Experience</p>
+        <p><small>Connect with a local tourguide to visit the world's wonders!</small></p>
+      </div>
+      <div class="col text-center">
+        <img src="/static/img/entertainment.png" height=100 width=100>
+        <p class="h5">The Entertainment</p>
+        <p><small>Sing, dance, and prance around various cultures and cuisines!</small></p>
+      </div>
+    </div>
+    <!--Grid row-->
+  </div>
+</div>
+</main>
+{% endblock content %}

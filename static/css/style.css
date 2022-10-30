@@ -31,3 +31,13 @@ main {
     background-position: center; 
     padding: 20;
 }
+
+.landmarks_bg {
+    height: 25vh; 
+    width: 100vw; 
+    background-image: url('/static/img/borobudur.jpg'); 
+    background-repeat: no-repeat; 
+    background-size: cover; 
+    background-position: center; 
+    padding: 20;
+}

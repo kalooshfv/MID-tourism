@@ -66,10 +66,10 @@
                         <h6 class="card-subtitle mb-2">${transportss.fields.transport_name}</h6>
                         <p class="card-text">${transportss.fields.transport_price}</p>
                         <p class="card-text">${transportss.fields.description}</p>
-                      
+                        {% if user.is_authenticated %} 
                         <a href="change_availability/${transportss.pk}" class="btn btn-outline-dark">Change availability</a>
                         <a href="remove_transport/${transportss.pk}" class="btn btn-outline-dark">Delete</a>   
-                            
+                        {% endif %}
                     </div>
                 </div>
                 `
@@ -82,8 +82,10 @@
                         <h6 class="card-subtitle mb-2">${transportss.fields.transport_name}</h6>
                         <p class="card-text">${transportss.fields.transport_price}</p>
                         <p class="card-text">${transportss.fields.description}</p>
+                        {% if user.is_authenticated %}
                         <a href="change_availability/${transportss.pk}" class="btn btn-outline-dark">Change availability</a>
-                        <a href="remove_transport/${transportss.pk}" class="btn btn-outline-dark">Delete</a>  
+                        <a href="remove_transport/${transportss.pk}" class="btn btn-outline-dark">Delete</a>
+                        {% endif %}  
                     </div>
                 </div>
                 `
@@ -173,11 +175,11 @@
       </div>
     </div>
   </div>
-  
+  {% if user.is_authenticated %}
   <button type="button" class="btn btn-secondary btn-lg btn-block" data-bs-toggle="modal" data-bs-target="#inside">
     Add New Rental Vehicle
   </button>
-  
-<div id="hoy" class="row row-cols-1 row-cols-md-5 g-4 mx-5"></div>
+  {% endif %}
+<div id="hoy" class="row row-cols-1 row-cols-md-5 g-4 mx-5" style="margin-top:10px"></div>
 </div>
 {% endblock content %}

@@ -1,0 +1,15 @@
+[
+    {
+        "model": "resto.restaurant",
+        "pk": 1,
+        "fields": {
+            "resto_name" : "My House",
+            "resto_address" : "Puri Beta 1 Jalan Tanjung 1 No.18, Banten, Tangerang",
+            "resto_email" : "kf.verrell@gmail.com",
+            "resto_phone" : "087881001234",
+            "resto_description" : "Literally just my house.",
+            "resto_photo": "static/img/about.png",
+            "resto_delivery": "https://www.youtube.com/"
+        }
+    }
+]

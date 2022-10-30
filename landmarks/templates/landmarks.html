@@ -9,18 +9,25 @@
     .landmark-img {
 
     }
+    .card-horizontal {
+        display: flex;
+        flex: 1 1 auto;
+    }
 </style>
 {% endblock meta %}
 
-{% if user.is_authenticated %}
+{% if authentication %}
     {% block navbar %}
         <button type="button" class="btn btn-primary px-3 me-2" data-bs-toggle="modal" data-bs-target="#newLandmarkModal">Register a Landmark</button>
+        <button type="button" class="btn btn-link px-3 me-2">
+            <a href="{% url 'homepage:logout' %}" style="text-decoration:none;">Logout</a>
+        </button>
     {% endblock navbar %}
 {% endif %}
 
 {% block content %}
 <div style="min-height:80vh">
-    <div class="landmarks_bg p-5 text-center bg-light">
+    <div class="landmarks_bg p-5 text-center bg-secondary">
         <span style="color:white">
             <h1 class="mb-3">Landmarks</h1>
             <h4 class="mb-3">Find the best cuisine in your location of choice!</h4>
@@ -29,18 +36,18 @@
     <div class="container">
         <div id="landmarks" class="col mb-3 mt-3">
             <div class="row my-3">
-                <div class="card landmark-cards">
-                    <div class="card-body">
-                        <div class="row">
-                            <div class="col landmark-img">
-                                <img src=${item.fields.image}>
-                            </div>
-                            <div class="col">
-                                <h2>aljnfaas</h2>
-                                <h3>kjnadasd</h3>
-                                <p>njkdfanjkas</p>
-                            </div>
+                <div class="card">
+                    <div class="card-horizontal">
+                        <div class="img-square-wrapper">
+                            <img class="" src="">
                         </div>
+                        <div class="card-body">
+                            <h4 class="card-title">Card title</h4>
+                            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                        </div>
+                    </div>
+                    <div class="card-footer">
+                        <small class="text-muted">Last updated 3 mins ago</small>
                     </div>
                 </div>
             </div>

@@ -1,7 +1,6 @@
 from django.shortcuts import render
 from django.http import HttpResponse, HttpResponseForbidden
 from django.core import serializers
-from django.contrib.auth.decorators import login_required
 
 from landmarks.models import Landmark
 
@@ -12,7 +11,8 @@ def return_json(request):
 def show_landmarks(request):
     landmarks = Landmark.objects.all()
     context = {
-        'landmarks': landmarks
+        'landmarks': landmarks,
+        'authentication': request.user.is_authenticated,
     }
     return render(request, "landmarks.html", context)
 

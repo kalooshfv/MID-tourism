@@ -12,6 +12,12 @@
         margin-left: 5px;
         margin-bottom: 10px;
     }
+    #available {
+      background-color: rgb(192, 192, 192, 0.8);
+    }
+    #unavailable {
+      background-color: rgb(128, 128, 128, 0.9);
+    }
     button {
         margin-top:10px ;
         margin-bottom: 10px;
@@ -25,15 +31,25 @@
         color:black
     }
     .card-av {
-        color:green
+        color:green;
+        text-align: center;
     }
     .card-unav {
-        color:red
+        color:red;
+        text-align: center;
     }
     h1 {
         text-align: center;
         margin-top: 10px;
         font-family: Verdana, Geneva, Tahoma, sans-serif;
+    }
+    .rental_bg {
+      height: 25vh;
+      background-image: url('/static/img/rentals.png');
+      background-repeat: no-repeat;
+      background-size: cover;
+      background-position: center;
+      padding: 20;
     }
 </style>
 <script>
@@ -43,25 +59,27 @@
         <div class="col">
             ${transportss.fields.availability ? 
                 `
-                <div class="card text-dark bg-light" style="width: 100%;">
+                <div class="card" style="width: 100%;" id="available">
                     <div class="card-body">
                         <h5 class="card-av">Available<h5>
                         <h5 class="card-title">${transportss.fields.company_name}</h5>
                         <h6 class="card-subtitle mb-2">${transportss.fields.transport_name}</h6>
                         <p class="card-text">${transportss.fields.transport_price}</p>
                         <p class="card-text">${transportss.fields.description}</p>
+                      
                         <a href="change_availability/${transportss.pk}" class="btn btn-outline-dark">Change availability</a>
-                        <a href="remove_transport/${transportss.pk}" class="btn btn-outline-dark">Delete</a>         
+                        <a href="remove_transport/${transportss.pk}" class="btn btn-outline-dark">Delete</a>   
+                            
                     </div>
                 </div>
                 `
                 :
                 `
-                <div class="card text-dark bg-light" style="width: 100%;">
+                <div class="card" style="width: 100%;" id="unavailable">
                     <div class="card-body">
                         <h5 class="card-unav">Unavailable<h5>
                         <h5 class="card-title">${transportss.fields.company_name}</h5>
-                        <h6 class="card-subtitle mb-2 text-muted">${transportss.fields.transport_name}</h6>
+                        <h6 class="card-subtitle mb-2">${transportss.fields.transport_name}</h6>
                         <p class="card-text">${transportss.fields.transport_price}</p>
                         <p class="card-text">${transportss.fields.description}</p>
                         <a href="change_availability/${transportss.pk}" class="btn btn-outline-dark">Change availability</a>
@@ -109,10 +127,17 @@
     loop();
 });
 </script>
-<h1> Vehicles you can rent! </h1>
+<div style="min-height: 10vh">
+<div class="rental_bg p-5 text-center bg-light">
+  <span style="color:white">
+   <h1 class="mb-3"> Vehicles you can rent! </h1>
+  </span>
+</div>
+</div>
+
 <div class="huh">
 
-  <div class="modal" id="inside" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="false">
+  <div class="modal fade" id="inside" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="false">
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">

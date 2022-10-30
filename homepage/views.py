@@ -14,9 +14,10 @@ def register(request):
     if request.method == "POST":
         form = UserCreationForm(request.POST)
         if form.is_valid():
+            print("what")
             form.save()
             messages.success(request, 'Account successfully created!')
-            return redirect("{% url 'homepage:homepage' %}")
+            return redirect('homepage:homepage')
     context = {'form':form}
     return render(request, 'register.html', context)
 
@@ -36,6 +37,5 @@ def login_user(request):
 
 def logout_user(request):
     logout(request)
-    response = HttpResponseRedirect(reverse('todolist:login'))
-    response.delete_cookie('last_login')
+    response = HttpResponseRedirect(reverse('homepage:login'))
     return response

@@ -25,7 +25,7 @@ urlpatterns = [
     #path('about', include('about.urls')),
     #path('hotel', include('hotel.urls')),
     path('landmarks', include('landmarks.urls')),
-    #path('rental_transport', include('rental_transport.urls')),
+    path('rental_transport', include('rental_transport.urls')),
     path('resto', include('resto.urls')),
     path('tourguide', include('tourguide.urls')),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

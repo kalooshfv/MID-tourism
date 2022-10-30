@@ -15,3 +15,4 @@ class Rooms(models.Model):
     room_photo = models.ImageField(upload_to = 'room/', null=True, blank=True)
     room_price = models.BigIntegerField()
     room_hotel = models.ForeignKey(Hotel, on_delete=models.CASCADE)
+    is_booked = models.BooleanField(default=False)

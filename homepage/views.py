@@ -4,7 +4,6 @@ from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
 from django.http import HttpResponseRedirect
 from django.urls import reverse
-from homepage.models import Player
 
 # Create your views here.
 def homepage(request):

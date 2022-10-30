@@ -73,13 +73,13 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent-7">
           <ul class="navbar-nav mr-auto">
             <li class="nav-item">
-              <a class="nav-link" href="#">About</a>
+              <a class="nav-link" href="{% url 'about:launch' %}">About</a>
             </li>
             <li class="nav-item">
               <a class="nav-link" href="{% url 'rental_transport:show_transportlist' %}">Transporations</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="#">Restaurants</a>
+              <a class="nav-link" href="{% url 'resto:show_restaurant' %}">Restaurants</a>
             </li>
             <li class="nav-item">
               <a class="nav-link" href="{% url 'landmarks:show_landmarks' %}">Landmarks</a>
@@ -93,7 +93,6 @@
           </ul>
         </div>
         <div class="d-flex align-items-center">
-          {% block navbar %}
           {% if user.is_authenticated %}
           <button type="button" class="btn btn-link px-3 me-2">
             <a href="{% url 'homepage:logout' %}" style="text-decoration:none;">Logout</a>
@@ -122,34 +121,6 @@
 <!--Main Layout-->
   {% block content %}
   {% endblock content %}
-  <footer class="bg-light text-center text-lg-start mt-5" style="max-height: 10vh">
-    <!-- Copyright -->
-    <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.2);" style="max-height: 10vh">
-      <i>© 2022 Copyright</i> <br>
-      <b>PBD Group Assignment</b> <i class="fab fa-github"> <br>
-      Dylan Pribadi ||
-      Halomoan Geraldo ||
-      Kaloosh Falito Verrell ||
-      Mohammad Attar ||
-      Nicholas Lexi ||
-      Raphael Fide Christiano
-    </div>
-    <!-- Copyright -->
-  </footer>
-  <footer class="bg-light text-center text-lg-start mt-5" style="max-height: 10vh">
-    <!-- Copyright -->
-    <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.2);" style="max-height: 10vh">
-      <i>© 2022 Copyright</i> <br>
-      <b>PBD Group Assignment</b> <br>
-      Dylan Pribadi ||
-      Halomoan Geraldo ||
-      Kaloosh Falito Verrell ||
-      Mohammad Attar ||
-      Nicholas Lexi ||
-      Raphael Fide Christiano
-    </div>
-    <!-- Copyright -->
-  </footer>
   <footer class="bg-light text-center text-lg-start mt-5" style="max-height: 10vh">
     <!-- Copyright -->
     <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.2);" style="max-height: 10vh">

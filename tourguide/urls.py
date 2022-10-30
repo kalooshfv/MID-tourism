@@ -6,7 +6,6 @@ app_name = 'tourguide'
 
 urlpatterns = [
     path('', show_schedule, name='show_schedule'),
-    path('create-task/', my_form, name='create-forms'),
     path("json/", show_json, name="show_json"),
     path("add/", add_schedule, name="add_schedule"),
     path("update-booked/<int:id>", update_booked, name="update_booked"),

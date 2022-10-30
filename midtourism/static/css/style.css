@@ -1,0 +1,43 @@
+main {
+    margin-left: 10vw;
+    margin-right: 10vw;
+}
+
+::-webkit-scrollbar {
+    display:none;
+}
+
+* {
+    -ms-overflow-style: none; 
+    scrollbar-width: none; 
+}
+
+.resto_bg {
+    height: 25vh; 
+    width: 100vw; 
+    background-image: url('/static/img/restaurant.png'); 
+    background-repeat: no-repeat; 
+    background-size: cover; 
+    background-position: center; 
+    padding: 20
+}
+
+.tourguide_bg {
+    height: 25vh; 
+    width: 100vw; 
+    background-image: url('/static/img/tourguide.jpg'); 
+    background-repeat: no-repeat; 
+    background-size: cover; 
+    background-position: center; 
+    padding: 20
+}
+
+.login_reg_bg {
+    height: 25vh; 
+    width: 100vw; 
+    background-image: url('/static/img/log_reg.png'); 
+    background-repeat: no-repeat; 
+    background-size: cover; 
+    background-position: center; 
+    padding: 20;
+}

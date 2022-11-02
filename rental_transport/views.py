@@ -8,6 +8,7 @@ from django.urls import reverse
 from django.http import HttpResponseRedirect
 from django.core import serializers
 from django.http import HttpResponse, JsonResponse
+from django.contrib.auth.decorators import login_required
 
 # Create your views here.
 def show_transportlist(request):
@@ -18,7 +19,7 @@ def show_transportlist(request):
     }
     return render(request, "transportlist.html", context)
 
-
+@login_required(login_url='/login')
 def create_transport(request):
     if request.method == "POST":
         company_name = request.POST.get("company_name")
@@ -50,6 +51,7 @@ def show_json(request):
     data = TransportList.objects.all()
     return HttpResponse(serializers.serialize("json",data), content_type="application/json")
 
+@login_required(login_url='/login')
 def remove_transport(request, id):
     itemtodelete = TransportList.objects.get(pk=id)
     itemtodelete.delete()

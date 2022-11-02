@@ -26,7 +26,13 @@
 </div>
 
 <script>
+  $(document).ready(function() {
+        $('#modal').on('hidden.bs.modal', function () {
+            $('#modal').find('form').trigger("reset");
+        });
+    });
   async function get_resto() {
+    console.log('something')
       return fetch("{% url 'resto:show_restaurant_json' %}").then((res) => res.json())
   }
   async function refresh() {

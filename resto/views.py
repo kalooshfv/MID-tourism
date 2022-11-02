@@ -8,6 +8,7 @@ from django.urls import reverse
 from django.core import serializers
 from django.views.decorators.csrf import csrf_exempt
 from django.http import JsonResponse
+from django.contrib.auth.decorators import login_required
 
 # Create your views here.
 def show_restaurant(request):
@@ -23,6 +24,7 @@ def show_restaurant_json(request):
     return HttpResponse(serializers.serialize("json", data), \
         content_type="application/json")
 
+@login_required(login_url='/login')
 def create_restaurant(request):
     if request.method == "POST":
         resto_name = request.POST.get("resto_name")
@@ -54,6 +56,7 @@ def create_restaurant(request):
     # context = {'form': form}
     # return render(request, 'resto_form.html', context)
 
+@login_required(login_url='/login')
 def delete_restaurant(request, id):
     object = get_object_or_404(Restaurant, pk = id) 
     object.delete()

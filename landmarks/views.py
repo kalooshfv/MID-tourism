@@ -1,7 +1,7 @@
 from django.shortcuts import render, get_object_or_404
 from django.http import HttpResponse
 from django.core import serializers
-
+from django.contrib.auth.decorators import login_required
 from landmarks.models import Landmark
 
 def return_json(request):
@@ -16,6 +16,7 @@ def show_landmarks(request):
     }
     return render(request, "landmarks.html", context)
 
+@login_required(login_url='/login')
 def add_landmark(request):
     if request.method == 'POST':
         name = request.POST.get('name')
@@ -28,6 +29,7 @@ def add_landmark(request):
 
         return HttpResponse(b"CREATED", status=201)
 
+@login_required(login_url='/login')
 def delete_landmark(request, id):
     item = get_object_or_404(Landmark, pk = id)
     item.delete()

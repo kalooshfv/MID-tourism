@@ -76,6 +76,11 @@
   </div>
 
 <script>
+    $(document).ready(function() {
+        $('#modal').on('hidden.bs.modal', function () {
+            $('#modal').find('form').trigger("reset");
+        });
+    });
     async function getLandmarks() {
         return fetch("{% url 'landmarks:json' %}").then((res) => res.json())
     };

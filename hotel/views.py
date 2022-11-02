@@ -33,20 +33,23 @@ def show_hotel_rooms(request, id):
     }
     return render(request, "rooms.html", context)
 
-def delete_room(request, room_id, hotel_id):
-    object = Rooms.objects.get(room_hotel=hotel_id, pk=room_id)
+@login_required(login_url='/login')
+def delete_room(request, id):
+    object = get_object_or_404(Rooms, pk=id)
     object.delete()
     return HttpResponseRedirect(reverse("hotel:show_hotel_rooms"))
 
+@login_required(login_url='/login')
 def delete_hotel(request, id):
     object = get_object_or_404(Hotel, pk = id) 
     object.delete()
     return HttpResponseRedirect(reverse("hotel:show_hotel"))
 
+@login_required(login_url='/login')
 def add_hotel(request):
     if request.method == "POST":
         hotel_name = request.POST.get("hotel_name")
-        hotel_photo = request.POST.get('hotel_photo', None)
+        hotel_photo = request.FILES['hotel_photo']
         hotel_address = request.POST.get("hotel_address")
         email = request.POST.get("email")
         star = request.POST.get("star")
@@ -54,39 +57,29 @@ def add_hotel(request):
         hotel = Hotel.objects.create(
             hotel_name=hotel_name,
             hotel_address=hotel_address,
+            hotel_photo=hotel_photo,
             email=email,
             star=star,
             description=description,
         )
         hotel.save()
-        return JsonResponse(
-            {
-                "pk": hotel.id,
-                "fields": {
-                    "hotel_name" : hotel_name,
-                    "hotel_address": hotel_address,
-                    "hotel_photo" : hotel_photo,
-                    "email": email,
-                    "star": star,
-                    "description": hotel.description,
-                },
-            },
-            status=200,
+        return HttpResponse(
+            b"CREATED", status=201
         )
 
-def add_room(request):
-    
+@login_required(login_url='/login')
+def add_room(request, id):
     room_type = request.POST.get("room_type")
     room_description = request.POST.get("room_description")
     room_price = request.POST.get("room_price")
-    room_photo = request.POST.get('room_photo', None)
-    room_hotel = Hotel.objects.get(pk=request.POST.get("room_hotel"))
+    room_photo = request.FILES['room_photo']
+    room_hotel = Hotel.objects.get(pk=id)
     room = Rooms.objects.create(
         room_type=room_type,
         room_description=room_description,
         room_price=room_price,
         room_hotel=room_hotel,
-        room_photo=room_photo
+        room_photo=room_photo,
     )
     room.save()
     return HttpResponse(

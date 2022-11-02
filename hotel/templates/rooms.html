@@ -5,13 +5,44 @@
 {% endblock meta %}
 
 {% block content %}
+<!-- container -->
+<div style="min-height:80vh">
+    <div class="hotel_bg p-5 text-center bg-light">
+
+    </div> 
+    {% if user.is_authenticated %}
+        <button type="button" class="container rounded-5 border border-5  my-5 bg-dark d-flex justify-content-center" style="width:25%; padding:1.5%;" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+            <h5 class="h5" style="color: white; text-align: center;">CREATE A NEW ROOM!</h5></button>
+    {% endif %}
+    <div style="padding-left: 10px; padding-right: 15px; margin: 5vh 0 0 1vw; min-height: 40vh;">
+        <div class="row row-cols-1 row-cols-md-2 g-4" id="container0">
+        </div>
+    </div>
+    <div>
+        <a style="text-decoration:none" class="d-flex justify-content-center" href="/hotel/">Check Other Hotels</a>
+    </div>
+</div>
+
+
 <script>
     $(document).ready(function() {
-        function card(room) {
-        return `
+        $('#staticBackdrop').on('hidden.bs.modal', function () {
+            $('#staticBackdrop').find('form').trigger("reset");
+        });
+    });
+    async function get_room() {
+      return fetch("{% url 'hotel:show_json_room' %}").then((res) => res.json())
+    }
+    async function refresh() {
+      document.getElementById("container0").innerHTML = "";
+      const rooms = await get_room();
+      let html_string = '';
+      
+      rooms.forEach((room) => {
+        html_string +=  `
         <div class="col">
             <div class="card text-dark bg-light mb-3 flex-row" style="min-width: 25vw; border-radius: 10px;" id='card'>
-                <img class="card-img-left example-card-img-responsive" src="/${room.fields.room_photo}" alt="No image" style='width:40%; padding: 1vh 0 1vh 1vw;'>
+                <img class="card-img-left" src="/media/${room.fields.room_photo}" alt="" style='width:40%; padding: 1vh 0 1vh 1vw;'>
                 <div class="card-body" style='margin-left:1vw'>
                     <h4 class="card-title">${room.fields.room_type}</h4>
                     <h6 class="card-text">price : Rp ${room.fields.room_price},00</h6>
@@ -20,56 +51,28 @@
                         `<a href="is_booked/${room.pk}" class="btn btn-primary">Book</a>` : 
                         `<a href="is_booked/${room.pk}" class="btn btn-warning disabled">Booked</a>`
                     }
-                    ${'#auth'===true ? 
-                        `<a href="delete_room/${room.pk}/${room.fields.room_hotel}" class="btn btn-danger" style="margin-left:0.5rem;">Delete</a>` : 
-                        ``
-                    }
+                    {% if user.is_authenticated %}
+                        <button class="btn btn-outline-secondary" id=${room.pk} onclick="delete_room(this.id)">Delete Room</button>
+                    {% endif %}
                 </div>
             </div>
         </div>
         `
-        };
-        // datepicker
-        // loop to display card
-        function loop() {
-            let inp = document.getElementById("hotelid").value;
-            $.get("{% url 'hotel:show_json_room' %}", function(data) {
-                $.each(data, function(i, value) {
-                    if(value.fields.room_hotel === parseInt(inp)) {
-                        $("#container0").append(card(value));
-                    }
-                });
-            });
-        };
-        // submitform
-        $("#submitbutton").click(e => {
-        e.preventDefault();
-        const csrftoken = document.querySelector(
-            "[name=csrfmiddlewaretoken]"
-        ).value;
-        $.ajax({
-            type: "POST",
-            url: "{% url 'hotel:add_room' %}",
-            headers: { "X-CSRFToken": csrftoken },
-            mode: "same-origin",
-            data: {
-                room_hotel: $('#hotelid').val(),
-                room_type: $("#typetext").val(),
-                room_description: $("#descriptiontext").val(),
-                room_photo: $('#roomphoto').val(),
-                room_price: $('#roomprice').val(),
-            },
-            success: response => {
-                $("#modalform").trigger("reset");
-                $("#container0").prepend(card(response));
-            },
-            error: error => {
-                console.log(error);
-            },
-            });
-        });
-        loop();
-    })
+    });
+    document.getElementById("container0").innerHTML = html_string;
+    };
+    function delete_room(id) {
+        var url = "{% url 'hotel:delete_room' 1 %}".replace('1', id)
+        fetch(url).then(refresh); 
+    };
+    function create_room(id) {
+        fetch("{% url 'hotel:add_room' 1 %}".replace('1', id), {
+        method: "POST",
+        body: new FormData(document.querySelector('#modalform'))
+        }).then(refresh);
+        return false
+    };
+    refresh();
 </script>
 
 <style>
@@ -86,6 +89,7 @@
     transform: scale(1.05);
     box-shadow: 0 10px 20px rgba(0,0,0,.12), 0 4px 8px rgba(0,0,0,.06);
 }
+
 </style>
 
 <body>
@@ -98,54 +102,35 @@
               <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <form method="POST" action="" id="modalform" class="needs-validation">
+                <form method="POST" action="" id="modalform" class="needs-validation" enctype="multipart/form-data">
                     {% csrf_token %} 
                     <div class="mb-3">
                       <label for="typetext" class="form-label">Room Type</label>
-                      <input type="text" class="form-control" id="typetext" aria-describedby="emailHelp" name="typetext" required>
+                      <input type="text" class="form-control" id="typetext" aria-describedby="emailHelp" name="room_type" required>
                     </div>
                     <div class="mb-3">
                       <label for="descriptiontext" class="form-label">Description</label>
-                      <input type="text" class="form-control" id="descriptiontext" name="descriptiontext" required>
+                      <input type="text" class="form-control" id="descriptiontext" name="room_description" required>
                     </div>
                     <div class="mb-3">
                         <label for="roomprice" class="form-label">Room Price</label>
-                        <input type="text" class="form-control" id="roomprice" name="roomprice" required>
+                        <input type="text" class="form-control" id="roomprice" name="room_price" required>
                     </div>
                     <div class="mb-3">
                         <label for="roomphoto" class="form-label">Room Photo</label>
-                        <input type="file" class="form-control" id="roomphoto" name="roomphoto">
+                        <input type="file" class="form-control" id="roomphoto" name="room_photo">
                     </div>
                 </form>
             </div>
             <div class="modal-footer">
-              <button type="submit" class="btn btn-secondary" data-bs-dismiss="modal" id="submitbutton">Submit</button>
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button data-bs-dismiss="modal" 
+                    type="button" class="btn btn-outline-dark btn-lg px-5" 
+                    type="submit" value="Create!" id="{{id}}"
+                    onclick=create_room(id)>Create!</button>
             </div>
           </div>
         </div>
     </div>
-
-    <!-- container -->
-    <div style="min-height:80vh">
-        <div class="hotel_bg p-5 text-center bg-light">
-            {% if user.is_authenticated %}
-            <button type="button" class="btn btn-light" data-bs-toggle="modal" data-bs-target="#staticBackdrop">Add Room</button>
-            {% endif %}
-        </div>
-        <div style="margin: 1vh 0 0 1.5vw">
-            <a href="/hotel/" class="btn btn-outline-primary" role="button" id="back" style="margin-bottom: 1vh;">Check Other Hotels</a><br>
-            {% if not user.is_authenticated %}
-            <input class=""type="text" name="dates">
-            {% endif %}
-        </div>
-        <div style="padding-left: 10px; padding-right: 15px; margin: 5vh 0 0 1vw;">
-            <div class="row row-cols-1 row-cols-md-2 g-4" id="container0">
-            </div>
-        </div>
-    </div>
-
-    <!-- hidden -->
-    <input id="hotelid" value={{id}} hidden>
-    <p id='auth' hidden>{{user.is_authenticated}}</p>
 </body>
 {% endblock content %}

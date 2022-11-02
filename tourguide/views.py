@@ -14,8 +14,6 @@ from django.contrib.auth import logout
 from django.contrib.auth.decorators import login_required
 from django.http import JsonResponse
 
-
-
 def show_schedule(request):
     data_schedule_item = Task.objects.all()
     current_user = request.user
@@ -31,15 +29,14 @@ def show_json(request):
         serializers.serialize("json", task), content_type="application/json"
     )
 
-
-
-@login_required(login_url="/login/")
+@login_required(login_url="login/")
 def update_booked(request, id):
     task = Task.objects.get(user=request.user, id=id)
     task.is_booked = not task.is_booked
     task.save(update_fields=["is_booked"])
     return HttpResponseRedirect(reverse("tourguide:show_schedule"))
 
+@login_required(login_url="login/")
 def add_schedule(request):
     if request.method == "POST":
         date = request.POST.get("date")

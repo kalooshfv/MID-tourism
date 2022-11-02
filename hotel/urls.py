@@ -9,8 +9,8 @@ urlpatterns = [
     path('json/', show_json, name="show_json"),
     path('json_room/', show_json_room, name="show_json_room"),
     path('delete_hotel/<int:id>', delete_hotel, name='delete_hotel'),
-    path('delete_room/<int:room_id>/<int:hotel_id>', delete_room, name='delete_room'),
+    path('delete_room/<int:id>', delete_room, name='delete_room'),
     path('add_hotel/', add_hotel, name='add_hotel'),
-    path('add_room/', add_room, name='add_room'),
+    path('add_room/<int:id>', add_room, name='add_room'),
     path('room/is_booked/<int:id>', is_booked, name='is_booked'),
 ]

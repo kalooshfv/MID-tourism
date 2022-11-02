@@ -1,0 +1,75 @@
+{% extends 'base.html' %}
+
+{% block meta %}
+<style>
+    table, tr, th, td {
+        border: 1px solid black;
+        border-collapse:collapse;
+    }
+    th, td {
+        padding: 5px;
+    }
+</style>
+{% endblock meta %}
+
+{% block content %}
+<div class="resto_bg">
+
+
+<a href="{% url 'resto:show_restaurant' %}"><button>Back to Home</button></a>
+</div>
+{% endblock content %}
+
+<!--
+<table>
+    <tr>
+        <th>Name</th>
+        <th>Address</th>
+        <th>Email</th>
+        <th>Phone Number</th>
+        <th>Schedule</th>
+        <th>Description</th>
+        <th>Photo</th>
+        <th>Delivery</th>
+    </tr>
+    <tr>
+        <td>{{ restaurant.resto_name }}</td>
+        <td>{{ restaurant.resto_address }}</td>
+        <td>{{ restaurant.resto_email }}</td>
+        <td>{{ restaurant.resto_phone }}</td>
+        <td>   
+            <table>
+                {% for hour in hours %}
+                <tr>
+                    <td>{{ hour }}</td>
+                </tr>
+                {% endfor %}
+            </table>
+        </td>
+        <td>{{ restaurant.resto_description }}</td>
+        <td><img src="{{restaurant.resto_photo.url}}" alt ="No image" 
+            width=200 length=200></td>
+        <td>{{ restaurant.resto_delivery }}</td>
+    </tr>
+</table>
+<a href="{% url 'resto:create_food' id %}"><button>Register a Dish!</button></a>
+<table>
+    <tr>
+        <th>Dish Name</th>
+        <th>Dish Price</th>
+        <th>In Stock?</th>
+        <th>Description</th>
+        <th>Photo</th>
+    </tr>
+    {% for food in foods %}
+    <tr>
+        <td>{{ food.food_name }}</td>
+        <td>{{ food.food_price }}</td>
+        <td>{{ food.food_stock }}</td>
+        <td>{{ food.food_description }}</td>
+        <td><img src="{{ food.food_photo.url }}" alt ="No image" 
+            width=175 length=175></td>
+        <td><a href="{% url 'resto:delete_food' food.pk id %}"><button>Delete this Dish</button></a></td>
+    </tr>
+    {% endfor %}
+</table>

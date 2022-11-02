@@ -16,14 +16,19 @@ Including another URLconf
 
 from django.contrib import admin
 from django.urls import path, include
+from django.conf import settings
+from django.conf.urls.static import static
 
 urlpatterns = [
     path("admin/", admin.site.urls),
     path('', include('homepage.urls')),
-    #path('about', include('about.urls')),
-    #path('hotel', include('hotel.urls')),
-    #path('landmarks', include('landmarks.urls')),
-    #path('rental_transport', include('rental_transport.urls')),
-    #path('resto', include('resto.urls')),
-    #path('tourguide', include('tourguide.urls')),
+    path('about/', include('about.urls')),
+    path('hotel/', include('hotel.urls')),
+    path('landmarks/', include('landmarks.urls')),
+    path('rental_transport/', include('rental_transport.urls')),
+    path('resto/', include('resto.urls')),
+    path('tourguide/', include('tourguide.urls')),
 ]
+
+if settings.DEBUG:
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

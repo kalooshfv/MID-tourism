@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+
+{% block meta %}
+<style>
+    table, tr, th, td {
+        border: 1px solid black;
+        border-collapse:collapse;
+    }
+    th, td {
+        padding: 5px;
+    }
+</style>
+{% endblock meta %}
+
+{% block content %}
+<div class="resto_bg">
+<table>
+    <!-- enctype needed for displaying image -->
+    <form action = "" method = "POST" enctype="multipart/form-data">
+    {% csrf_token %}
+        {{ form.as_table }}
+        <tr><td colspan="2">
+            <input type="submit" name="submit" value="Register Dish">
+        </td></tr>
+    </form>
+</table>
+</div>
+{% endblock content %}

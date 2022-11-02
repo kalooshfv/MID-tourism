@@ -1,0 +1,164 @@
+{% extends 'base.html' %}
+
+{% block meta %}
+<title>Hotel</title>
+<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+{% endblock meta %}
+
+{% block content %}
+<!-- container -->
+<div style="min-height:80vh;">
+    <div class="hotel_bg p-5 text-center bg-light">
+        <span style="color:white">
+            <h1 class="mb-3">Hotels</h1>
+            <h4 class="mb-3">Find your perfect place to stay!</h4>
+        </span>
+    </div>
+    {% if user.is_authenticated %}
+        <button type="button" class="container rounded-5 border border-5  my-5 bg-dark d-flex justify-content-center" style="width:25%; padding:1.5%;" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+            <h5 class="h5" style="color: white; text-align: center;">CREATE A NEW HOTEL!</h5></button>
+    {% endif %}
+    <div style="padding-left: 2.5vw; padding-right: 2vw; margin-top: 5vh;">
+        <div id="container0" class="row row-cols-1 row-cols-md-2 g-4">
+        </div>
+    </div> 
+</div>
+
+<script>
+    $(document).ready(function() {
+        $('#staticBackdrop').on('hidden.bs.modal', function () {
+            $('#staticBackdrop').find('form').trigger("reset");
+        });
+    });
+    async function get_hotel() {
+      return fetch("{% url 'hotel:show_json' %}").then((res) => res.json())
+    }
+    async function refresh() {
+      document.getElementById("container0").innerHTML = "";
+      const hotels = await get_hotel();
+      let html_string = '';
+      
+      hotels.forEach((hotel) => {
+        html_string += 
+        `
+        <div class="col">
+            <div class="card text-dark bg-light mb-3 flex-row" style="min-width: 20vw; border-radius: 10px;" id='card'>
+            <img class="card-img-left" src="/media/${hotel.fields.hotel_photo}" alt="" style='width:40%; padding: 1vh 0 1vh 1vw;'>
+                <div class="card-body" style='padding-left:1vw'>
+                    <h4 class="card-title">${hotel.fields.hotel_name}</h4>
+                    <h6 class="card-subtitle">address : ${hotel.fields.hotel_address}</h6>
+                    <p class="card-subtitle">email : ${hotel.fields.email}</p>
+                    <p class="card-text">${hotel.fields.star}-star</p>
+                    <p class="card-text">${hotel.fields.description}</p>
+                    <a href="room/${hotel.pk}" class="btn btn-outline-primary">Check Availability</a>
+                    {% if user.is_authenticated %}
+                    <a href="delete_hotel/${hotel.pk}" class="btn btn-danger" style="margin-left:0.5rem;">Delete Hotel</a>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+        `
+    });
+    document.getElementById("container0").innerHTML = html_string;
+    };
+    function delete_hotel(id) {
+        var url = "{% url 'hotel:delete_hotel' 1 %}".replace('1', id)
+        fetch(url).then(refresh); 
+    };
+    function create_hotel() {
+        fetch("{% url 'hotel:add_hotel' %}", {
+        method: "POST",
+        body: new FormData(document.querySelector('#modalform'))
+        }).then(refresh);
+        return false
+    };
+    refresh();
+</script>
+
+<style>
+    .hotel_bg {
+    height: 25vh; 
+    width: 100vw; 
+    background-image: url('/static/img/hotel.png'); 
+    background-repeat: no-repeat; 
+    background-size: cover; 
+    background-position: center; 
+    padding: 20
+    }
+    #card:hover{
+    transform: scale(1.05);
+    box-shadow: 0 10px 20px rgba(0,0,0,.12), 0 4px 8px rgba(0,0,0,.06);
+    }
+</style>
+
+<body>
+    <!-- modal -->
+    <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+            <h1 class="modal-title fs-5" id="staticBackdropLabel">Add Hotel</h1>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form method="POST" action="" id="modalform" enctype="multipart/form-data">
+                    {% csrf_token %} 
+                    <div class="mb-3">
+                    <label for="nametext" class="form-label">Name</label>
+                    <input type="text" class="form-control required" id="nametext" aria-describedby="emailHelp" name="hotel_name">
+                    </div>
+                    <div class="mb-3">
+                    <label for="addresstext" class="form-label">Address</label>
+                    <input type="text" class="form-control" id="addresstext" name="hotel_address" required="">
+                    </div>
+                    <div class="mb-3">
+                        <label for="emailinput" class="form-label">Email</label>
+                        <input type="email" class="form-control" id="emailinput" name="email" required="">
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Star</label><br>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" name="star" id="inlineRadio1" value=1>
+                            <label class="form-check-label" for="inlineRadio1">1</label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" name="star" id="inlineRadio2" value=2>
+                            <label class="form-check-label" for="inlineRadio2">2</label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" name="star" id="inlineRadio3" value=3>
+                            <label class="form-check-label" for="inlineRadio3">3</label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" name="star" id="inlineRadio4" value=4>
+                            <label class="form-check-label" for="inlineRadio4">4</label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" name="star" id="inlineRadio5" value=5>
+                            <label class="form-check-label" for="inlineRadio5">5</label>
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <label for="descriptiontext" class="form-label">Description</label>
+                        <input type="text" class="form-control" id="descriptiontext" name="description" required="">
+                    </div>
+                    <div class="mb-3">
+                        <label for="photoinput" class="form-label">Hotel Photo</label>
+                        <input type="file" class="form-control" id="hotel_photo" name="hotel_photo">
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            <button data-bs-dismiss="modal" 
+                type="button" class="btn btn-outline-dark btn-lg px-5" 
+                type="submit" value="Create!" id="create" 
+                onclick=create_hotel()>Create!</button>
+            </div>
+        </div>
+        </div>
+    </div>
+</body>
+{% endblock content %}

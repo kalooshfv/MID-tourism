@@ -1,0 +1,131 @@
+{% extends 'base.html' %}
+
+{% block meta %}
+<title>Landmarks</title>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.min.js" integrity="sha384-IDwe1+LCz02ROU9k972gdyvl+AESN10+x7tBKgc9I5HFtuNz0wWnPclzo6p9vxnk" crossorigin="anonymous"></script>
+<style>
+    .landmarks-bg {
+        height: 25vh; 
+        width: 100vw; 
+        background-image: url('/static/img/borobudur.jpg'); 
+        background-repeat: no-repeat; 
+        background-size: cover; 
+        background-position: center; 
+        padding: 20;
+    }
+</style>
+{% endblock meta %}
+
+{% block content %}
+<div style="min-height:80vh">
+    <div class="landmarks-bg p-5 text-center bg-secondary">
+        <span style="color:white">
+            <h1 class="mb-3">Landmarks</h1>
+            <h4 class="mb-3">Beautiful places across the islands!</h4>
+        </span>
+    </div>
+    {% if user.is_authenticated %}
+    <button data-bs-toggle="modal" data-bs-target="#modal" class="container rounded-5 border border-5  my-5 bg-dark d-flex justify-content-center" style="width:25%; padding:1.5%;" >
+        <h5 class="h5" style="color: white; text-align: center;">Register a Landmark</h5>
+    </button>
+    {% endif %}
+    <div class="container">
+        <div id="landmarks" class="col mb-3 mt-3">
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="modal" tabindex="-1" aria-labelledby="modalLabel" aria-hidden="true">
+    <div class="modal-dialog rounded-10">
+      <div class="modal-content bg-dark">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" style="color: white;">Register a Landmark</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <form id="form" method="POST" action="">
+            {% csrf_token %}
+          <table>
+            <tr><td><div class="form-outline form-white mb-4">
+                <input name = "name" class="form-control" type="text" maxlength="64" required="" placeholder="Landmark's Name">
+            </div></td></tr>
+            <tr><td><div class="form-outline form-white mb-4">
+                <input name = "location" class="form-control" type="text" maxlength="64" required="" placeholder="Location">
+            </div></td></tr>
+            <tr><td><div class="form-outline form-white mb-4">
+                <textarea name = "description" placeholder="Description" 
+                cols="50" rows="5" required="" spellcheck="false" class="form-control form-control-lg"></textarea>
+             </div></td></tr>
+            <tr><td><h5 class="h5" style="color: white;">Landmark's Photo</h1></td></tr>
+            <tr><td><div class="form-outline form-white mb-4">
+                <input name = "image" class="form-control" type="file" required="">
+            </div></td></tr>
+          </table>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          <button data-bs-dismiss="modal" 
+          type="button" class="btn btn-outline-light btn-lg px-5" 
+          type="submit" value="Create!" id="create" 
+          onclick=addLandmark()>Create!</button>
+        </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+<script>
+    $(document).ready(function() {
+        $('#modal').on('hidden.bs.modal', function () {
+            $('#modal').find('form').trigger("reset");
+        });
+    });
+    async function getLandmarks() {
+        return fetch("{% url 'landmarks:json' %}").then((res) => res.json())
+    };
+
+    async function refreshLandmarks() {
+        document.getElementById("landmarks").innerHTML = "";
+        const landmarks = await getLandmarks();
+        let htmlString = '';
+        landmarks.forEach((item) => {
+            htmlString += `
+            <div class="col-lg-4 mb-4">
+                <div class="card mb-3 mt-3 pl-3 pr-3">
+                    <img class="card-img-top" src="/media/${item.fields.image}">
+                    <div class="card-body">
+                        <h5 class="card-title">${item.fields.name }</h5>
+                        <h6 class="card-subtitle mb-2 text-muted">${item.fields.location}</h6>
+                        <p class="card-text"> 
+                            ${item.fields.description}
+                        </p>
+                    </div>
+                    {% if user.is_authenticated %}
+                    <div class="card-footer">
+                        <td><button class="btn btn-outline-secondary btn-danger" style="color:white" id=${item.pk} onclick="deleteLandmark(this.id)">Delete Landmark</button></td>
+                    </div> 
+                    {% endif %}
+                </div>
+            </div>
+            `
+        });
+        document.getElementById("landmarks").innerHTML = htmlString;
+    };
+
+    function addLandmark() {
+        fetch("{% url 'landmarks:add_landmark' %}", {
+            method: "POST",
+            body: new FormData(document.querySelector('#form'))
+        }).then(refreshLandmarks);
+    };
+
+    function deleteLandmark(id) {
+        var url = "{% url 'landmarks:delete_landmark' 1 %}".replace('1', id)
+        fetch(url).then(refreshLandmarks); 
+    };
+
+    refreshLandmarks();
+</script>
+
+{% endblock content %}

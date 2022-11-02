@@ -58,6 +58,7 @@ def add_hotel(request):
             star=star,
             description=description,
         )
+        hotel.save()
         return JsonResponse(
             {
                 "pk": hotel.id,
@@ -74,32 +75,23 @@ def add_hotel(request):
         )
 
 def add_room(request):
-    if request.method == "POST":
-        room_type = request.POST.get("room_type")
-        room_description = request.POST.get("room_description")
-        room_price = request.POST.get("room_price")
-        room_photo = request.POST.get('room_photo', None)
-        room_hotel = Hotel.objects.get(pk=request.POST.get("room_hotel"))
-        room = Rooms.objects.create(
-            room_type=room_type,
-            room_description=room_description,
-            room_price=room_price,
-            room_hotel=room_hotel,
-            room_photo=room_photo
-        )
-        return JsonResponse(
-            {
-                "pk": room.id,
-                "fields": {
-                    "room_type" : room_type,
-                    "room_description": room_description,
-                    "room_photo": room_photo,
-                    "room_price": room_price,
-                    "room_hotel": room_hotel.pk,
-                },
-            },
-            status=200,
-        )
+    
+    room_type = request.POST.get("room_type")
+    room_description = request.POST.get("room_description")
+    room_price = request.POST.get("room_price")
+    room_photo = request.POST.get('room_photo', None)
+    room_hotel = Hotel.objects.get(pk=request.POST.get("room_hotel"))
+    room = Rooms.objects.create(
+        room_type=room_type,
+        room_description=room_description,
+        room_price=room_price,
+        room_hotel=room_hotel,
+        room_photo=room_photo
+    )
+    room.save()
+    return HttpResponse(
+        b"CREATED", status=201
+    )
 
 def is_booked(request, id):
     item = Rooms.objects.get(pk=id)

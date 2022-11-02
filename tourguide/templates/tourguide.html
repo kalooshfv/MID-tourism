@@ -18,7 +18,7 @@
                       <h5 class="card-title">${task.fields.date}</h5>
                       <p class="card-text">${task.fields.destination}</p>
                       <div class="custom-control custom-checkbox">
-                        <input type="checkbox" class="custom-control-input" onclick="location.href='update-booked/${task.pk}'" ${task.fields.is_booked ? "checked" : ""}>
+                        <input type="checkbox" class="custom-control-input" onclick="location.href='/tourguide/update-booked/${task.pk}'" ${task.fields.is_booked ? "checked" : ""}>
                         <label class="custom-control-label" for="#">Booked</label>
                       </div>
                   </div>

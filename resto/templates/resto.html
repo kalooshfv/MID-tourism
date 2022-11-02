@@ -40,7 +40,7 @@
           `
           <div class="col-lg-4 mb-4">
               <div class="card mb-3 mt-3 pl-3 pr-3">
-                  <img class="card-img-top" src="/${resto.fields.resto_photo}" alt ="No image">
+                  <img class="card-img-top" src="/media/${resto.fields.resto_photo}" alt ="No image">
                   <div class="card-body">
                       <h5 class="card-title">${ resto.fields.resto_name }</h5>
                       <h6 class="card-subtitle mb-2 text-muted">${resto.fields.resto_address}</h6>
@@ -55,7 +55,7 @@
                   </ul>
                   {% if user.is_authenticated %}
                   <div class="card-footer">
-                      <td><button class="btn btn-outline-secondary"><a href="delete_restaurant/${resto.pk}">Delete Restaurant</a></button></td>
+                      <td><button class="btn btn-outline-secondary" id=${resto.pk} onclick="delete_restaurant(this.id)">Delete Restaurant</button></td>
                   </div> 
                   {% endif %}
               </div>
@@ -65,13 +65,16 @@
       document.getElementById("grid").innerHTML = html_string;
     };
   function create_resto() {
-    console.log(new FormData(document.querySelector('#form')))
     fetch("{% url 'resto:create_resto' %}", {
       method: "POST",
       body: new FormData(document.querySelector('#form'))
     }).then(refresh);
     return false
   }
+  function delete_restaurant(id) {
+        var url = "{% url 'resto:delete_restaurant' 1 %}".replace('1', id)
+        fetch(url).then(refresh); 
+    };
   refresh();
 </script>
 

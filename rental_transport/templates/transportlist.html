@@ -59,32 +59,32 @@
         <div class="col">
             ${transportss.fields.availability ? 
                 `
-                <div class="card" style="width: 100%;" id="available">
+                <div class="card" style="width: 100%;" id="unavailable">
                     <div class="card-body">
-                        <h5 class="card-av">Available<h5>
+                      <h5 class="card-unav">Unavailable<h5>
                         <h5 class="card-title">${transportss.fields.company_name}</h5>
                         <h6 class="card-subtitle mb-2">${transportss.fields.transport_name}</h6>
                         <p class="card-text">${transportss.fields.transport_price}</p>
                         <p class="card-text">${transportss.fields.description}</p>
-                        {% if user.is_authenticated %} 
-                        <a href="change_availability/${transportss.pk}" class="btn btn-outline-dark">Change availability</a>
-                        <a href="remove_transport/${transportss.pk}" class="btn btn-outline-dark">Delete</a>   
+                        {% if user.is_authenticated %}
+                        <a href="/rental_transport/change_availability/${transportss.pk}" class="btn btn-outline-dark">Change availability</a>
+                        <a href="/rental_transport/remove_transport/${transportss.pk}" class="btn btn-outline-dark">Delete</a>
                         {% endif %}
                     </div>
                 </div>
                 `
                 :
                 `
-                <div class="card" style="width: 100%;" id="unavailable">
+                <div class="card" style="width: 100%;" id="available">
                     <div class="card-body">
-                        <h5 class="card-unav">Unavailable<h5>
+                      <h5 class="card-av">Available<h5>
                         <h5 class="card-title">${transportss.fields.company_name}</h5>
                         <h6 class="card-subtitle mb-2">${transportss.fields.transport_name}</h6>
                         <p class="card-text">${transportss.fields.transport_price}</p>
                         <p class="card-text">${transportss.fields.description}</p>
-                        {% if user.is_authenticated %}
-                        <a href="change_availability/${transportss.pk}" class="btn btn-outline-dark">Change availability</a>
-                        <a href="remove_transport/${transportss.pk}" class="btn btn-outline-dark">Delete</a>
+                        {% if user.is_authenticated %} 
+                        <a href="/rental_transport/change_availability/${transportss.pk}" class="btn btn-outline-dark">Change availability</a>
+                        <a href="/rental_transport/remove_transport/${transportss.pk}" class="btn btn-outline-dark">Delete</a>
                         {% endif %}  
                     </div>
                 </div>

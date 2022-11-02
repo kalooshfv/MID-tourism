@@ -19,6 +19,12 @@
             <h4 class="mb-3">Find the best cuisine in your location of choice!</h4>
         </span>
     </div>
+
+    {% if user.is_authenticated %}
+    <button data-bs-toggle="modal" data-bs-target="#modal" class="container rounded-5 border border-5  my-5 bg-dark d-flex justify-content-center" style="width:25%; padding:1.5%;" >
+      <h5 class="h5" style="color: white; text-align: center;">Register a New Restaurant!</h5></button>
+    {% endif %}
+
     <div class="container">
         <div id="grid" class="row mb-3 mt-3">
         </div>
@@ -83,11 +89,6 @@
     };
   refresh();
 </script>
-
-{% if user.is_authenticated %}
-<button data-bs-toggle="modal" data-bs-target="#modal" class="container rounded-5 border border-5  my-5 bg-dark d-flex justify-content-center" style="width:25%; padding:1.5%;" >
-  <h5 class="h5" style="color: white; text-align: center;">CREATE A NEW RESTAURANT!</h5></button>
-{% endif %}
 
 <div class="modal fade" id="modal" tabindex="-1" aria-labelledby="modalLabel" aria-hidden="true">
     <div class="modal-dialog rounded-10">

@@ -129,15 +129,19 @@
     loop();
 });
 </script>
-<div style="min-height: 10vh">
-<div class="rental_bg p-5 text-center bg-light">
-  <span style="color:white">
-   <h1 class="mb-3"> Vehicles you can rent! </h1>
-  </span>
-</div>
-</div>
+<div style="min-height: 80vh">
+  <div class="rental_bg p-5 text-center bg-light">
+    <span style="color:white">
+    <h1 class="mb-3"> Vehicles you can rent! </h1>
+    </span>
+  </div>
 
-<div class="huh">
+  {% if user.is_authenticated %}
+  <button data-bs-toggle="modal" data-bs-target="#inside" class="container rounded-5 border border-5  my-5 bg-dark d-flex justify-content-center" style="width:25%; padding:1.5%;" >
+    <h5 class="h5" style="color: white; text-align: center;">Add Vehicle</h5></button>
+  {% endif %}
+
+  <div id="hoy" class="row row-cols-1 row-cols-md-5 g-4 mx-5" style="margin-top:10px"></div>
 
   <div class="modal fade" id="inside" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="false">
     <div class="modal-dialog">
@@ -175,11 +179,5 @@
       </div>
     </div>
   </div>
-  {% if user.is_authenticated %}
-  <button type="button" class="btn btn-secondary btn-lg btn-block" data-bs-toggle="modal" data-bs-target="#inside">
-    Add New Rental Vehicle
-  </button>
-  {% endif %}
-<div id="hoy" class="row row-cols-1 row-cols-md-5 g-4 mx-5" style="margin-top:10px"></div>
 </div>
 {% endblock content %}

@@ -89,59 +89,52 @@
       background-color :rgb(20, 84, 116, 0.6) !important;
     }
 </style>
+<div style="min-height: 80vh;">
   <div class="tourguide_bg p-5 text-center bg-light">
       <span style="color:white">
           <h1 class="mb-3">Find the right tourguide for you!</h1>
-          {% if user.is_authenticated %}
-          <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalinterior">
-            Add New Schedule
-          </button>
-          {% endif %}
       </span>
   </div>
+  {% if user.is_authenticated %}
+  <button data-bs-toggle="modal" data-bs-target="#modalinterior" class="container rounded-5 border border-5  my-5 bg-dark d-flex justify-content-center" style="width:25%; padding:1.5%;" >
+    <h5 class="h5" style="color: white; text-align: center;">Add Schedule</h5></button>
+  {% endif %}
   <div class="container">
-      <div id="grid" class="row mb-3 mt-3">
-      </div>
+    <div id="refer" class="row row-cols-1 row-cols-md-5 g-4"></div>
   </div>
+</div>
 
-<div class="MakeMarginOmegalol">
-  <div class="modal fade" id="modalinterior" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h1 class="modal-title fs-5" id="exampleModalLabel">Add Schedule</h1>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-        </div>
-        <div class="modal-body">
-          <form method="post" id="addtask">
-              {% csrf_token %}
-              <div class="col text-center">
-              <div class="form-floating mb-3 w-10">
-                  <div class="form-floating">
-                  <input type="text" class="form-control" name="company" id="cominput" placeholder="Task Name" required>
-                  <label for="floatingInput">Company Name</label>
-                  </div>
-                  <div class="form-floating">
-                  <input  type="text" class="form-control" name="dateinput" id="datepicker" placeholder="Task Name">
-                  <label for="floatingInput">Date</label>
-                  </div>
-                  <div class="form-floating">
-                  <input type="text" class="form-control" name="destination" id="descinput" placeholder="Task Name" required>
-                  <label for="floatingInput">Destination</label>
-                  <button class="btn btn-success my-3" type="submit" id="submitbutton" data-bs-dismiss="modal">Create Schedule</button>
-                  </div>
-              </div>
-              </div>
-          </form>
-        </div>
+<div class="modal fade" id="modalinterior" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel">Add Schedule</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form method="post" id="addtask">
+            {% csrf_token %}
+            <div class="col text-center">
+            <div class="form-floating mb-3 w-10">
+                <div class="form-floating">
+                <input type="text" class="form-control" name="company" id="cominput" placeholder="Task Name" required>
+                <label for="floatingInput">Company Name</label>
+                </div>
+                <div class="form-floating">
+                <input  type="text" class="form-control" name="dateinput" id="datepicker" placeholder="Task Name">
+                <label for="floatingInput">Date</label>
+                </div>
+                <div class="form-floating">
+                <input type="text" class="form-control" name="destination" id="descinput" placeholder="Task Name" required>
+                <label for="floatingInput">Destination</label>
+                <button class="btn btn-success my-3" type="submit" id="submitbutton" data-bs-dismiss="modal">Create Schedule</button>
+                </div>
+            </div>
+            </div>
+        </form>
       </div>
     </div>
   </div>
-
-
-
-
-<div id="refer" class="row row-cols-1 row-cols-md-5 g-4"></div>
 </div>
-</div>
+
 {% endblock content %}

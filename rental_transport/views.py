@@ -1,11 +1,6 @@
-from http.client import HTTPResponse
 from django.shortcuts import render
 from rental_transport.models import *
 from django.shortcuts import redirect
-from django.contrib.auth.forms import UserCreationForm
-from django.contrib import messages
-from django.urls import reverse
-from django.http import HttpResponseRedirect
 from django.core import serializers
 from django.http import HttpResponse, JsonResponse
 from django.contrib.auth.decorators import login_required

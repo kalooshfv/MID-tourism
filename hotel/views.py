@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from hotel.models import *
 from django.contrib.auth.decorators import login_required
-from django.http import HttpResponse, HttpResponseRedirect, JsonResponse
+from django.http import HttpResponse, HttpResponseRedirect
 from django.urls import reverse
 from django.core import serializers
 

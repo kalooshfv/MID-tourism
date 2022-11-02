@@ -15,7 +15,7 @@ main {
 .resto_bg {
     height: 25vh; 
     width: 100vw; 
-    background-image: url('/static/img/restaurant.png'); 
+    background-image: url('/static/img/restaurant.jpg'); 
     background-repeat: no-repeat; 
     background-size: cover; 
     background-position: center; 
@@ -35,7 +35,7 @@ main {
 .login_reg_bg {
     height: 25vh; 
     width: 100vw; 
-    background-image: url('/static/img/log_reg.png'); 
+    background-image: url('/static/img/log_reg.jpg'); 
     background-repeat: no-repeat; 
     background-size: cover; 
     background-position: center; 
@@ -45,7 +45,7 @@ main {
 .hotel_bg {
     height: 25vh; 
     width: 100vw; 
-    background-image: url('/static/img/hotel.png'); 
+    background-image: url('/static/img/hotel.jpg'); 
     background-repeat: no-repeat; 
     background-size: cover; 
     background-position: center; 

@@ -11,7 +11,7 @@
         return `
         <div class="col">
             <div class="card text-dark bg-light mb-3 flex-row" style="min-width: 25vw; border-radius: 10px;" id='card'>
-                <img class="card-img-left example-card-img-responsive" src="/${room.fields.room_photo}" alt="No image" style='width:40%; padding: 1vh 0 1vh 1vw;'>
+                <img class="card-img-left example-card-img-responsive" src="/static/img/placeholder.jpg" alt="" style='width:40%; padding: 1vh 0 1vh 1vw;'>
                 <div class="card-body" style='margin-left:1vw'>
                     <h4 class="card-title">${room.fields.room_type}</h4>
                     <h6 class="card-text">price : Rp ${room.fields.room_price},00</h6>
@@ -21,8 +21,8 @@
                         `<a href="is_booked/${room.pk}" class="btn btn-warning disabled">Booked</a>`
                     }
                     ${'#auth'===true ? 
-                        `<a href="delete_room/${room.pk}/${room.fields.room_hotel}" class="btn btn-danger" style="margin-left:0.5rem;">Delete</a>` : 
-                        ``
+                        `<a href="delete_room/${room.pk}/${room.fields.room_hotel}" class="btn btn-danger" id="delete-${room.pk}" style="margin-left:0.5rem;">Delete</a>` : 
+                        `<a href="delete_room/${room.pk}/${room.fields.room_hotel}" class="btn btn-danger" id="delete-${room.pk}" style="margin-left:0.5rem;">Delete</a>`
                     }
                 </div>
             </div>
@@ -69,6 +69,24 @@
             },
             });
         });
+        const deleteRoom = id => {
+            const csrftoken = document.querySelector(
+            "[name=csrfmiddlewaretoken]"
+            ).value;
+            let inp = document.getElementById("hotelid").value;
+            $.ajax({
+                url: "{% url 'hotel:delete_room' 0, 00  %}".replace("0", id).replace("00", inp),
+                type: "DELETE",
+                headers: { "X-CSRFToken": csrftoken },
+                mode: "same-origin",
+                success: () => {
+                    $(`#delete-${id}`).parent().parent().parent().remove();
+                },
+                error: error => {
+                    console.log(error);
+                },
+                });
+            }
         loop();
     })
 </script>
@@ -112,10 +130,6 @@
                     <div class="mb-3">
                         <label for="roomprice" class="form-label">Room Price</label>
                         <input type="text" class="form-control" id="roomprice" name="roomprice" required>
-                    </div>
-                    <div class="mb-3">
-                        <label for="roomphoto" class="form-label">Room Photo</label>
-                        <input type="file" class="form-control" id="roomphoto" name="roomphoto">
                     </div>
                 </form>
             </div>

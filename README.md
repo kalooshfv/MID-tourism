@@ -1,6 +1,6 @@
 MID-Tourism ✈️
 ==============================
-by PT. Maju Indonesia Tourism **[https://mid-tourism.herokuapp.com](google.com "Find your Tourism needs here!")**
+by PT. Maju Indonesia Tourism **[google.com "Find your Tourism needs here!"](https://mid-tourism.herokuapp.com)**
 
 ###### What are the instructions to build, run, and deploy the app?
 1. **Install Prerequisites**

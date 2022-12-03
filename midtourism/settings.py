@@ -51,6 +51,7 @@ INSTALLED_APPS = [
     "resto",
     "tourguide",
 ]
+
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',

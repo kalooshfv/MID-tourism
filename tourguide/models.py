@@ -5,11 +5,10 @@ from django.contrib.auth.models import User
 
 class Task(models.Model):
     user = models.ForeignKey(
-        settings.AUTH_USER_MODEL,
+        User,
         on_delete=models.CASCADE,
-        null = True,
     )
     company = models.CharField(max_length=255)
-    date = models.DateField(null = True,default=datetime.date.today)
+    date = models.DateField(default=datetime.date.today)
     destination = models.CharField(max_length=255)
     is_booked = models.BooleanField(default=False)

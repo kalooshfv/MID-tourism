@@ -5,6 +5,7 @@ from django.http import HttpResponse, HttpResponseRedirect
 from django.urls import reverse
 from django.core import serializers
 from django.contrib.auth.decorators import login_required
+from django.conf import settings
 
 # Create your views here.
 def show_restaurant(request):
@@ -16,6 +17,7 @@ def show_restaurant(request):
     return render(request, 'resto.html', context)
 
 def show_restaurant_json(request):
+    print(settings.BASE_DIR)
     data = Restaurant.objects.all()
     return HttpResponse(serializers.serialize("json", data), \
         content_type="application/json")

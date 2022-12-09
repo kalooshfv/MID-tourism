@@ -5,6 +5,8 @@ from django.http import HttpResponse, HttpResponseRedirect
 from django.urls import reverse
 from django.core import serializers
 from django.contrib.auth.decorators import login_required 
+from django.views.decorators.csrf import csrf_exempt
+
 
 # Create your views here.
 def show_restaurant(request):
@@ -47,3 +49,14 @@ def delete_restaurant(request, id):
     object = get_object_or_404(Restaurant, pk = id) 
     object.delete()
     return HttpResponseRedirect(reverse("resto:show_restaurant"))
+
+@csrf_exempt
+def create_restaurant_flutter(request):
+    if request.method == "POST":
+        form = RestaurantForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return HttpResponseRedirect(reverse("resto:show_restaurant"))
+    else:
+        form = RestaurantForm()
+    return render(request, 'resto.html', {'form':form})

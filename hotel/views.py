@@ -92,3 +92,45 @@ def is_booked(request, id):
     item.save()
     print(item.is_booked)
     return redirect('hotel:show_hotel')
+
+@csrf_exempt
+def add_hotel_flutter(request):
+    if request.method == "POST":
+        hotel_name = request.POST.get("hotel_name")
+        hotel_photo = request.POST.get('hotel_photo')
+        hotel_address = request.POST.get("hotel_address")
+        email = request.POST.get("email")
+        star = int(request.POST.get("star"))
+        description = request.POST.get("description")
+        hotel = Hotel.objects.create(
+            hotel_name=hotel_name,
+            hotel_address=hotel_address,
+            hotel_photo=hotel_photo,
+            email=email,
+            star=star,
+            description=description,
+        )
+        hotel.save()
+        return HttpResponse(
+            b"CREATED", status=201
+        )
+
+@csrf_exempt
+def add_room_flutter(request, id):
+    if request.method == "POST":
+        room_type = request.POST.get("room_type")
+        room_description = request.POST.get("room_description")
+        room_price = int(request.POST.get("room_price"))
+        room_photo = request.POST.get('room_photo')
+        room_hotel = Hotel.objects.get(pk=id)
+        room = Rooms.objects.create(
+            room_type=room_type,
+            room_description=room_description,
+            room_price=room_price,
+            room_hotel=room_hotel,
+            room_photo=room_photo,
+        )
+        room.save()
+        return HttpResponse(
+            b"CREATED", status=201
+        )

@@ -13,4 +13,6 @@ urlpatterns = [
     path('add_hotel/', add_hotel, name='add_hotel'),
     path('add_room/<int:id>', add_room, name='add_room'),
     path('room/is_booked/<int:id>', is_booked, name='is_booked'),
+    path('add_hotel_flutter/', add_hotel_flutter, name='add_hotel_flutter'),
+    path('add_room_flutter/', add_room_flutter, name='add_room_flutter'),
 ]

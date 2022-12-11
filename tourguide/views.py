@@ -58,3 +58,21 @@ def add_schedule(request):
             },
             status=200,
         )
+
+@csrf_exempt
+def add_schedule_flutter(request):
+    if request.method == "POST":
+        date = request.POST.get("date")
+        month = date[0:2]
+        day = date[3:5]
+        year = date[6:]
+        destination = request.POST.get("destination")
+        company = request.POST.get("company")
+        task = Task.objects.create(
+            user=request.user,
+            company=company,
+            date = year + '-' + month + '-' + day,
+            destination=destination,
+        )
+        task.save()
+        return HttpResponse(status=201)

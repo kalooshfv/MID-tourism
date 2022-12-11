@@ -9,4 +9,5 @@ urlpatterns = [
     path("json/", show_json, name="show_json"),
     path("add/", add_schedule, name="add_schedule"),
     path("update-booked/<int:id>", update_booked, name="update_booked"),
+    path("add_schedule_flutter/", add_schedule_flutter, name="add_schedule_flutter"),
 ]

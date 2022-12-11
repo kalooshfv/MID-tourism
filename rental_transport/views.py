@@ -28,7 +28,6 @@ def create_transport(request):
             description=description,
         )
         transportss.save()
-        print(transportss)
         return JsonResponse(
             {
                 "pk": transportss.id,
@@ -57,3 +56,20 @@ def change_availability(request, id):
     itemtochange.availability = not itemtochange.availability
     itemtochange.save()
     return redirect('rental_transport:show_transportlist')
+
+@csrf_exempt
+def create_transport_flutter(request):
+    if request.method == "POST":
+        company_name = request.POST.get("company_name")
+        transport_name = request.POST.get("transport_name")
+        transport_price = request.POST.get("transport_price")
+        description = request.POST.get("description")
+        transports = TransportList.objects.create(
+            company_name=company_name,
+            transport_name=transport_name,
+            transport_price=transport_price,
+            description=description,
+        )
+        transports.save()
+        return HttpResponse(status=201)
+

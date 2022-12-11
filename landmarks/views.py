@@ -34,3 +34,16 @@ def delete_landmark(request, id):
     item = get_object_or_404(Landmark, pk = id)
     item.delete()
     return HttpResponse()
+
+@csrf_exempt
+def add_landmark_flutter(request):
+    if request.method == 'POST':
+        name = request.POST.get('name')
+        location = request.POST.get('location')
+        description = request.POST.get('description')
+        image = request.POST.get('image')
+
+        new = Landmark(name=name, location=location, description=description, image=image)
+        new.save()
+
+        return HttpResponse(b"CREATED", status=201)

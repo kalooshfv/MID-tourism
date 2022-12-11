@@ -76,7 +76,5 @@ def delete_restaurant_flutter(request):
     id = int(request.POST.get("id"))
     object = get_object_or_404(Restaurant, pk = id) 
     object.delete()
-    return JsonResponse(status=204)
-        
-        
+    return HttpResponse(status=204)
 

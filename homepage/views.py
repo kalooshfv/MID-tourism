@@ -41,26 +41,29 @@ def logout_user(request):
 # Flutter login
 @csrf_exempt
 def login_flutter(request):
-    username = request.POST['username']
-    password = request.POST['password']
-    user = authenticate(username=username, password=password)
-    if user is not None:
-        if user.is_active:
-            login(request, user)
-            # Redirect to a success page.
-            return JsonResponse({
-            "status": True,
-            "message": "Successfully Logged In!"
-            # Insert any extra data if you want to pass data to Flutter
-            }, status=200)
+    if request.method == "POST":
+        username = request.POST['username']
+        password = request.POST['password']
+        user = authenticate(username=username, password=password)
+        if user is not None:
+            if user.is_active:
+                login(request, user)
+                # Redirect to a success page.
+                return JsonResponse({
+                "status": True,
+                "message": "Successfully Logged In!"
+                # Insert any extra data if you want to pass data to Flutter
+                }, status=200)
+            else:
+                return JsonResponse({
+                "status": False,
+                "message": "Failed to Login, Account Disabled."
+                }, status=401)
+
         else:
             return JsonResponse({
             "status": False,
-            "message": "Failed to Login, Account Disabled."
+            "message": "Failed to Login, check your email/password."
             }, status=401)
-
     else:
-        return JsonResponse({
-        "status": False,
-        "message": "Failed to Login, check your email/password."
-        }, status=401)
+        return render(request, 'login.html')

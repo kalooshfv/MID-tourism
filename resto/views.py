@@ -53,11 +53,24 @@ def delete_restaurant(request, id):
 @csrf_exempt
 def create_restaurant_flutter(request):
     if request.method == "POST":
-        data = request.body.decode("utf-8")
-        form = RestaurantForm(request.POST)
-        if form.is_valid():
-            form.save()
-            return HttpResponseRedirect(reverse("resto:show_restaurant"))
+        resto_name = request.POST.get("resto_name")
+        resto_address = request.POST.get("resto_address")
+        resto_email = request.POST.get("resto_email")
+        resto_phone = request.POST.get("resto_phone")
+        resto_description = request.POST.get("resto_description")
+        resto_photo = request.POST.get("resto_photo")
+        resto_delivery = request.POST.get("resto_delivery")
+        resto = Restaurant.objects.create(
+            resto_name = resto_name,
+            resto_address = resto_address,
+            resto_email = resto_email,
+            resto_phone = resto_phone,
+            resto_description = resto_description,
+            resto_photo = resto_photo,
+            resto_delivery = resto_delivery,
+        )
+        resto.save()
         return HttpResponse(status=201)
+        
         
 

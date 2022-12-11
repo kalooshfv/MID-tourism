@@ -72,8 +72,7 @@ def create_restaurant_flutter(request):
         resto.save()
         return HttpResponse(status=201)
 
-def delete_restaurant_flutter(request):
-    id = int(request.POST.get("id"))
+def delete_restaurant_flutter(request, id):
     object = get_object_or_404(Restaurant, pk = id) 
     object.delete()
     return HttpResponse(status=204)

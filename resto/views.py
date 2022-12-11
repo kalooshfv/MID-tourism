@@ -56,7 +56,7 @@ def create_restaurant_flutter(request):
         resto_name = request.POST.get("resto_name")
         resto_address = request.POST.get("resto_address")
         resto_email = request.POST.get("resto_email")
-        resto_phone = request.POST.get("resto_phone")
+        resto_phone = int(request.POST.get("resto_phone"))
         resto_description = request.POST.get("resto_description")
         resto_photo = request.POST.get("resto_photo")
         resto_delivery = request.POST.get("resto_delivery")

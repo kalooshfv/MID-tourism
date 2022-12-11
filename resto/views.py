@@ -1,7 +1,7 @@
 from django.shortcuts import render, get_object_or_404
 from resto.models import *
 from resto.forms import *
-from django.http import HttpResponse, HttpResponseRedirect
+from django.http import HttpResponse, HttpResponseRedirect, JsonResponse
 from django.urls import reverse
 from django.core import serializers
 from django.contrib.auth.decorators import login_required 
@@ -76,7 +76,7 @@ def delete_restaurant_flutter(request):
     id = int(request.POST.get("id"))
     object = get_object_or_404(Restaurant, pk = id) 
     object.delete()
-    return HttpResponse(status=204)
+    return JsonResponse(status=204)
         
         
 

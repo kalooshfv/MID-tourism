@@ -6,6 +6,7 @@ from django.shortcuts import render
 from tourguide.models import Task
 from django.contrib.auth.decorators import login_required
 from django.http import JsonResponse
+from django.views.decorators.csrf import csrf_exempt
 
 def show_schedule(request):
     data_schedule_item = Task.objects.all()

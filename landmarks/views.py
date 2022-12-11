@@ -3,6 +3,7 @@ from django.http import HttpResponse
 from django.core import serializers
 from django.contrib.auth.decorators import login_required
 from landmarks.models import Landmark
+from django.views.decorators.csrf import csrf_exempt
 
 def return_json(request):
     data = Landmark.objects.all()

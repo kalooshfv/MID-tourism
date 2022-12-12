@@ -140,3 +140,22 @@ def add_room_flutter(request, id):
 def show_json_room_flutter(request, id): 
     data = Rooms.objects.filter(room_hotel = id)
     return HttpResponse(serializers.serialize("json", data), content_type="application/json")
+
+@csrf_exempt
+def delete_room_flutter(request, id):
+    object = get_object_or_404(Rooms, pk=id)
+    object.delete()
+    return HttpResponse(204)
+
+@csrf_exempt
+def delete_hotel_flutter(request, id):
+    object = get_object_or_404(Hotel, pk = id) 
+    object.delete()
+    return HttpResponse(204)
+
+@csrf_exempt
+def is_booked_flutter(request, id):
+    item = Rooms.objects.get(pk=id)
+    item.is_booked = not item.is_booked
+    item.save()
+    return HttpResponse(204)

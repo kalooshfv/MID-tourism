@@ -16,4 +16,7 @@ urlpatterns = [
     path('add_hotel_flutter/', add_hotel_flutter, name='add_hotel_flutter'),
     path('add_room_flutter/<int:id>', add_room_flutter, name='add_room_flutter'),
     path('show_json_room_flutter/<int:id>', show_json_room_flutter, name='show_json_room_flutter'),
+    path('delete_room_flutter/<int:id>', delete_room_flutter, name='delete_room_flutter'),
+    path('delete_hotel_flutter/<int:id>', delete_hotel_flutter, name='delete_hotel_flutter'),
+    path('is_booked_flutter/<int:id>', is_booked_flutter, name='is_booked_flutter'),
 ]

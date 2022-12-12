@@ -6,6 +6,7 @@ from django.http import HttpResponseRedirect, JsonResponse, HttpResponse
 from django.urls import reverse
 from django.views.decorators.csrf import csrf_exempt
 from django.contrib.auth.models import User
+from django.core import serializers
 
 
 # Create your views here.
@@ -39,6 +40,11 @@ def logout_user(request):
     logout(request)
     response = HttpResponseRedirect(reverse('homepage:homepage'))
     return response
+
+def show_user_json(request):
+    data = User.objects.all()
+    return HttpResponse(serializers.serialize("json", data), \
+        content_type="application/json")
 
 # Flutter login
 @csrf_exempt

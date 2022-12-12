@@ -138,6 +138,5 @@ def add_room_flutter(request, id):
 
 @csrf_exempt
 def show_json_room_flutter(request, id): 
-    hotel = Hotel.objects.get(pk = id)
-    data = Rooms.objects.filter(room_hotel = hotel)
+    data = Rooms.objects.filter(room_hotel = id)
     return HttpResponse(serializers.serialize("json", data), content_type="application/json")

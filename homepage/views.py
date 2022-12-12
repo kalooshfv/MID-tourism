@@ -73,8 +73,8 @@ def login_flutter(request):
 @csrf_exempt
 def register_flutter(request):
     if request.method == "POST":
-        username = request.POST['username']
-        password = request.POST['password']
+        username = request.POST.get('username')
+        password = request.POST.get('password')
         if username and password:
             create = User.objects.create_user(username = username, password = password)
             create.save()

@@ -10,10 +10,8 @@ from django.views.decorators.csrf import csrf_exempt
 
 def show_schedule(request):
     data_schedule_item = Task.objects.all()
-    current_user = request.user
     context = {
         'list_item': data_schedule_item,
-        'user':current_user,
     }
     return render(request, "tourguide.html",context)
 
@@ -25,7 +23,7 @@ def show_json(request):
 
 @login_required(login_url="login/")
 def update_booked(request, id):
-    task = Task.objects.get(user=request.user, id=id)
+    task = Task.objects.get(id=id)
     task.is_booked = not task.is_booked
     task.save(update_fields=["is_booked"])
     return HttpResponseRedirect(reverse("tourguide:show_schedule"))
@@ -40,18 +38,15 @@ def add_schedule(request):
         destination = request.POST.get("destination")
         company = request.POST.get("company")
         task = Task.objects.create(
-            user=request.user,
             company=company,
             date = year + '-' + month + '-' + day,
             destination=destination,
         )
         task.save()
-        print(task.user)
         return JsonResponse(
             {
                 "pk": task.id,
                 "fields": {
-                    "user":task.user.username,
                     "company":task.company,
                     "date": task.date,
                     "destination": task.destination,
@@ -67,7 +62,6 @@ def add_schedule_flutter(request):
         destination = request.POST.get("destination")
         company = request.POST.get("company")
         task = Task.objects.create(
-            user=request.user,
             company=company,
             date = date,
             destination=destination,
@@ -77,7 +71,7 @@ def add_schedule_flutter(request):
 
 @csrf_exempt
 def update_booked_flutter(request, id):
-    task = Task.objects.get(user=request.user, id=id)
+    task = Task.objects.get(id=id)
     task.is_booked = not task.is_booked
     task.save(update_fields=["is_booked"])
     return HttpResponse(200)

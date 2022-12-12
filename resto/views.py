@@ -58,7 +58,7 @@ def create_restaurant_flutter(request):
         resto_email = request.POST.get("resto_email")
         resto_phone = int(request.POST.get("resto_phone"))
         resto_description = request.POST.get("resto_description")
-        resto_photo = request.POST.get("resto_photo")
+        resto_photo = request.FILES["resto_photo"]
         resto_delivery = request.POST.get("resto_delivery")
         resto = Restaurant.objects.create(
             resto_name = resto_name,
@@ -72,6 +72,7 @@ def create_restaurant_flutter(request):
         resto.save()
         return HttpResponse(status=201)
 
+@csrf_exempt
 def delete_restaurant_flutter(request, id):
     object = get_object_or_404(Restaurant, pk = id) 
     object.delete()

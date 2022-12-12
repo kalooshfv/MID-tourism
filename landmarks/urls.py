@@ -8,6 +8,6 @@ urlpatterns = [
     path('json/', return_json, name='json'),
     path('add-landmark/', add_landmark, name='add_landmark'),
     path('delete-landmark/<int:id>/', delete_landmark, name='delete_landmark'),
-    path('add_landmark_flutter/<int:id>', add_landmark_flutter, name='add_landmark_flutter'),
+    path('add_landmark_flutter/', add_landmark_flutter, name='add_landmark_flutter'),
     path('delete_landmark_flutter/<int:id>', delete_landmark_flutter, name='delete_landmark_flutter'),
 ]

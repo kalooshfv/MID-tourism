@@ -72,13 +72,18 @@ def login_flutter(request):
 
 @csrf_exempt
 def register_flutter(request):
+    form = UserCreationForm()
     if request.method == "POST":
-        username = request.POST.get('username')
+        form = UserCreationForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return HttpResponse(201)
+        """username = request.POST.get('username')
         password = request.POST.get('password')
         if username and password:
             create = User.objects.create_user(username = username, password = password)
             create.save()
-            return HttpResponse(201)
+            return HttpResponse(201)"""
 
 @csrf_exempt
 def logout_flutter(request):

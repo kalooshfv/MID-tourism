@@ -42,7 +42,7 @@ def add_landmark_flutter(request):
         name = request.POST.get('name')
         location = request.POST.get('location')
         description = request.POST.get('description')
-        image = request.POST.get('image')
+        image = request.FILES['image']
 
         new = Landmark(name=name, location=location, description=description, image=image)
         new.save()

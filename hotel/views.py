@@ -98,7 +98,7 @@ def is_booked(request, id):
 def add_hotel_flutter(request):
     if request.method == "POST":
         hotel_name = request.POST.get("hotel_name")
-        hotel_photo = request.POST.get('hotel_photo')
+        hotel_photo = request.FILES['hotel_photo']
         hotel_address = request.POST.get("hotel_address")
         email = request.POST.get("email")
         star = int(request.POST.get("star"))
@@ -122,7 +122,7 @@ def add_room_flutter(request, id):
         room_type = request.POST.get("room_type")
         room_description = request.POST.get("room_description")
         room_price = int(request.POST.get("room_price"))
-        room_photo = request.POST.get('room_photo')
+        room_photo = request.FILES['room_photo']
         room_hotel = Hotel.objects.get(pk=id)
         room = Rooms.objects.create(
             room_type=room_type,

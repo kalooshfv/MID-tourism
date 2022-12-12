@@ -2,9 +2,11 @@ from django.shortcuts import render, redirect
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
-from django.http import HttpResponseRedirect, JsonResponse
+from django.http import HttpResponseRedirect, JsonResponse, HttpResponse
 from django.urls import reverse
 from django.views.decorators.csrf import csrf_exempt
+from django.contrib.auth.models import User
+
 
 # Create your views here.
 def homepage(request):
@@ -67,3 +69,18 @@ def login_flutter(request):
             }, status=401)
     else:
         return render(request, 'login.html')
+
+@csrf_exempt
+def register_flutter(request):
+    if request.method == "POST":
+        username = email = request.POST['username']
+        password = request.POST['password']
+        if username and email and password:
+            created = User.objects.create_user(username = username, email = username, password = password)
+            return HttpResponse(201)
+
+@csrf_exempt
+def logout_flutter(request):
+    logout(request)
+    return HttpResponse(status=200)
+

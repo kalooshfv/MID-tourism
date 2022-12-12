@@ -48,3 +48,9 @@ def add_landmark_flutter(request):
         new.save()
 
         return HttpResponse(b"CREATED", status=201)
+
+@csrf_exempt
+def delete_landmark_flutter(request, id):
+    item = get_object_or_404(Landmark, pk = id)
+    item.delete()
+    return HttpResponse()

@@ -10,4 +10,6 @@ urlpatterns = [
     path('remove_transport/<int:id>', remove_transport, name="remove_transport"),
     path('change_availability/<int:id>', change_availability, name="change_availability"),
     path('create_transport_flutter/', create_transport_flutter, name="create_transport_flutter"),
+    path('remove_transport_flutter/<int:id>', remove_transport_flutter, name="remove_transport_flutter"),
+    path('change_availability_flutter/<int:id>', change_availability_flutter, name="change_availability_flutter"),
 ]

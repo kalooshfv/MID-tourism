@@ -77,3 +77,10 @@ def add_schedule_flutter(request):
         )
         task.save()
         return HttpResponse(status=201)
+
+@csrf_exempt
+def update_booked_flutter(request, id):
+    task = Task.objects.get(user=request.user, id=id)
+    task.is_booked = not task.is_booked
+    task.save(update_fields=["is_booked"])
+    return HttpResponse(200)

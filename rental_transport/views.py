@@ -74,3 +74,16 @@ def create_transport_flutter(request):
         transports.save()
         return HttpResponse(status=201)
 
+@csrf_exempt
+def remove_transport_flutter(request, id):
+    itemtodelete = TransportList.objects.get(pk=id)
+    itemtodelete.delete()
+    return HttpResponse(status=204)
+
+@csrf_exempt
+def change_availability_flutter(request, id):
+    itemtochange = TransportList.objects.get(pk=id)
+    itemtochange.availability = not itemtochange.availability
+    itemtochange.save()
+    return HttpResponse(status=204)
+
